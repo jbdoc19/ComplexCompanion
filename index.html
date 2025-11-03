@@ -1530,7 +1530,441 @@
     </div>
   </div>
 
-  <script type="text/python" id="py-data">
+  <script type="application/json" id="initial-data-fallback">
+{
+  "atlas": {
+    "agencies": [
+      {
+        "category": "Home Health",
+        "entries": [
+          {
+            "name": "Lakeside Home Health",
+            "service": "Skilled nursing, PT/OT",
+            "contact": "(555) 232-9910",
+            "notes": "Reliable wound care team",
+            "tags": [
+              "trusted",
+              "state-funded"
+            ]
+          },
+          {
+            "name": "Compass Transitional Care",
+            "service": "RN assessments, speech therapy",
+            "contact": "(555) 882-1104",
+            "notes": "Great with ALS care plans",
+            "tags": [
+              "trusted"
+            ]
+          }
+        ]
+      },
+      {
+        "category": "Therapies",
+        "entries": [
+          {
+            "name": "Align Pediatric Therapy",
+            "service": "PT/OT, sensory integration",
+            "contact": "(555) 301-7760",
+            "notes": "OT evals under 10 days",
+            "tags": [
+              "pediatric",
+              "private-pay"
+            ]
+          },
+          {
+            "name": "Urban Speech Collective",
+            "service": "AAC evaluations, feeding",
+            "contact": "(555) 902-4411",
+            "notes": "Experienced with trach kiddos",
+            "tags": [
+              "trusted",
+              "aac"
+            ]
+          }
+        ]
+      },
+      {
+        "category": "DME",
+        "entries": [
+          {
+            "name": "Momentum Mobility",
+            "service": "Wheelchairs, gait trainers",
+            "contact": "(555) 415-2290",
+            "notes": "Loaner program available",
+            "tags": [
+              "trusted",
+              "loaner"
+            ]
+          }
+        ]
+      },
+      {
+        "category": "Transport",
+        "entries": [
+          {
+            "name": "CareRide Accessible",
+            "service": "Non-emergent bariatric transport",
+            "contact": "dispatch@careride.org",
+            "notes": "Schedule 48h in advance",
+            "tags": [
+              "state-funded"
+            ]
+          }
+        ]
+      }
+    ],
+    "behavioral_advisor": {
+      "title": "Behavioral Resources",
+      "summary": "Quick triage to behavioral supports.",
+      "criteria": [
+        "Caregiver reports of escalating aggression or elopement",
+        "Two or more ED visits for behavior within 6 months",
+        "Existing school-based plan inadequate",
+        "Team consensus for Applied Behavior Analysis"
+      ],
+      "clipboard": "Behavioral referral: family reports escalation with two ED visits in 6 months. Request ABA intake and care coordination."
+    },
+    "adaptive_advisor": {
+      "title": "Adaptive Device Advisor",
+      "summary": "Match AAC and adaptive tech quickly.",
+      "criteria": [
+        "Minimal verbal output < 20 functional words",
+        "Demonstrated ability to make binary choices",
+        "Stable positioning with support",
+        "Care team ready for device trials"
+      ],
+      "clipboard": "AAC referral: child uses <20 functional words, demonstrates choice making, family prepared for device trials. Request comprehensive AAC eval."
+    },
+    "guidelines": [
+      {
+        "title": "AAC Device Eligibility",
+        "keywords": [
+          "aac",
+          "device",
+          "communication",
+          "criteria"
+        ],
+        "summary": [
+          "Receptive language age 12 months or higher",
+          "Demonstrates intentional communication attempts",
+          "Documented impact on participation"
+        ],
+        "links": [
+          {
+            "label": "Practice Brief",
+            "url": "https://example.org/aac-brief"
+          },
+          {
+            "label": "Funding Checklist",
+            "url": "https://example.org/aac-funding"
+          }
+        ],
+        "template": "AAC eligibility summary: receptive language >12mo, intentional communication present, participation limited. Recommend CPT 92607 eval and trial."
+      },
+      {
+        "title": "Pediatric Hospice Criteria",
+        "keywords": [
+          "hospice",
+          "end-of-life",
+          "eligibility"
+        ],
+        "summary": [
+          "Two physicians certify life expectancy < 6 months",
+          "Family elects comfort-focused plan",
+          "Interdisciplinary team engaged"
+        ],
+        "links": [
+          {
+            "label": "NHPCO Guidance",
+            "url": "https://example.org/hospice"
+          }
+        ],
+        "template": "Pediatric hospice consult: prognosis <6 months, family choosing comfort focus, IDT mobilized."
+      }
+    ]
+  },
+  "practice": {
+    "checklists": [
+      {
+        "id": "preclinic",
+        "title": "Pre-Clinic Huddle",
+        "sections": [
+          {
+            "title": "Med review",
+            "description": "Spot red flags before the clinic day starts.",
+            "items": [
+              "Verify medication changes since last visit",
+              "Check recent lab or imaging results that need review",
+              "Confirm emergency medications and expiration dates"
+            ]
+          },
+          {
+            "title": "Equipment updates",
+            "description": "Ensure positioning, mobility, and communication tools are ready.",
+            "items": [
+              "Inspect adaptive seating and straps",
+              "Confirm backup communication device availability",
+              "Flag urgent repair tickets"
+            ]
+          },
+          {
+            "title": "Goals for the day",
+            "description": "Align on focus and teaching pearls.",
+            "items": [
+              "Share primary visit goal",
+              "Assign learner teaching point",
+              "Clarify discharge blockers"
+            ]
+          }
+        ]
+      },
+      {
+        "id": "clinic",
+        "title": "Clinic Visit Touchpoints",
+        "sections": [
+          {
+            "title": "Intake readiness",
+            "description": "Keep flow smooth from arrival to exam.",
+            "items": [
+              "Confirm vitals and weight trend",
+              "Review interim events since last visit",
+              "Screen for caregiver concerns"
+            ]
+          },
+          {
+            "title": "Team sync",
+            "description": "Everyone aligned before entering room.",
+            "items": [
+              "Share anticipated procedures",
+              "Review safety considerations",
+              "Confirm learner roles"
+            ]
+          },
+          {
+            "title": "Wrap-up",
+            "description": "Close loop on plan and documentation.",
+            "items": [
+              "Summarize care plan with family",
+              "Update task list and responsible owner",
+              "Set follow-up reminders"
+            ]
+          }
+        ]
+      },
+      {
+        "id": "meeting",
+        "title": "Team Meeting Prep",
+        "sections": [
+          {
+            "title": "Agenda building",
+            "description": "Keep the meeting mission-focused.",
+            "items": [
+              "Collect wins and urgent risks",
+              "Prioritize referrals needing escalation",
+              "Tag teaching cases"
+            ]
+          },
+          {
+            "title": "Data pulls",
+            "description": "Have the right info on screen.",
+            "items": [
+              "Export census and LOS",
+              "Update staffing grid",
+              "Bring quality dashboard highlights"
+            ]
+          },
+          {
+            "title": "Action tracking",
+            "description": "Leave with owners and due dates.",
+            "items": [
+              "Log tasks with responsible person",
+              "Share teaching assignments",
+              "Schedule follow-up touchpoints"
+            ]
+          }
+        ]
+      }
+    ],
+    "templates": [
+      {
+        "id": "rett",
+        "syndrome": "Rett syndrome",
+        "hpi": [
+          "Regression timeline, seizure frequency, breathing irregularities",
+          "GI status: feeding tolerance, constipation, reflux",
+          "Daytime supports: school, therapies, respite"
+        ],
+        "assessment_plan": [
+          "Assess scoliosis progression and tone management",
+          "Review seizure control plan and rescue meds",
+          "Evaluate nutritional status and growth",
+          "Confirm augmentative communication supports"
+        ],
+        "care_coordination": [
+          "Sync with therapy team on equipment needs",
+          "Revisit home nursing or respite resources",
+          "Check DME repair timelines"
+        ],
+        "care_plan": {
+          "goals": [
+            "Maintain comfort and participation in daily routines",
+            "Support family confidence with seizure rescue plan"
+          ],
+          "follow_up": [
+            "Neurology follow-up in 3 months or sooner for breakthrough seizures",
+            "Therapy check-in monthly for positioning adjustments"
+          ],
+          "medications": [
+            "Continue current anticonvulsant regimen; monitor side effects",
+            "Assess need for bowel regimen adjustments"
+          ],
+          "therapies": [
+            "PT/OT weekly focusing on posture and hand function",
+            "Speech therapy for AAC coaching and caregiver training"
+          ],
+          "referrals": [
+            "Nutrition for constipation management review",
+            "Orthopedics for scoliosis monitoring"
+          ]
+        }
+      },
+      {
+        "id": "cp",
+        "syndrome": "Cerebral palsy",
+        "hpi": [
+          "Functional classification (GMFCS), mobility, communication",
+          "Spasticity management history and equipment use",
+          "Recent hospitalizations, caregiver goals"
+        ],
+        "assessment_plan": [
+          "Assess tone interventions (botox, baclofen, SDR)",
+          "Evaluate equipment fit: seating, gait trainers, orthotics",
+          "Review feeding safety and nutrition plan",
+          "Plan for school-based services and IEP coordination"
+        ],
+        "care_coordination": [
+          "Coordinate PT/OT/SLP schedules",
+          "Check Medicaid waiver or respite resources",
+          "Share caregiver education materials"
+        ],
+        "care_plan": {
+          "goals": [
+            "Optimize comfort and participation in mobility routine",
+            "Increase caregiver confidence with positioning program"
+          ],
+          "follow_up": [
+            "Tone clinic follow-up in 6 months",
+            "Orthotics check in 3 months or sooner if skin issues"
+          ],
+          "medications": [
+            "Continue baclofen; titrate with therapy feedback",
+            "Consider trial of nighttime muscle relaxant for spasms"
+          ],
+          "therapies": [
+            "PT/OT twice weekly with stretching and strengthening focus",
+            "Speech therapy for AAC system reinforcement"
+          ],
+          "referrals": [
+            "Equipment vendor for gait trainer adjustments",
+            "Social work for respite navigation"
+          ]
+        }
+      }
+    ],
+    "care_plan_defaults": {
+      "goals": "",
+      "follow_up": "",
+      "medications": "",
+      "therapies": "",
+      "referrals": ""
+    }
+  },
+  "curriculum": [
+    {
+      "id": "nutrition-feeding-intolerance",
+      "title": "Feeding intolerance in neurologically impaired children.",
+      "theme": "Nutrition",
+      "tags": [
+        "GI",
+        "Resident Teaching",
+        "Parent Counseling"
+      ],
+      "body": "**Check-in**\n- Ask about retching, abdominal distention, and stooling pattern.\n- Confirm current formula, volume, and venting strategy.\n- Review hydration labs and weight change over the last two visits.\n- Script for caregivers: 'If feeds back up twice in a day, vent, pause 30 minutes, then call the team.'",
+      "references": [
+        {
+          "label": "ESPGHAN Neurodisability Feeding Guideline",
+          "url": "https://example.org/espghan-feeding"
+        },
+        {
+          "label": "Home venting protocol handout",
+          "url": "https://example.org/venting-handout"
+        }
+      ]
+    },
+    {
+      "id": "pulmonary-niv-check-in",
+      "title": "Nighttime noninvasive ventilation check-in.",
+      "theme": "Pulmonary",
+      "tags": [
+        "Respiratory",
+        "Equipment",
+        "Sleep"
+      ],
+      "body": "Before visit\n- Confirm download of the last 30 nights and adherence summary.\nRoom script\n- Ask the caregiver to demonstrate mask seal and backup battery placement.\n- Review red flag symptoms: morning headaches, daytime fatigue, unplanned hospital use.\nTeaching pearl\n- Normalize adjusting IPAP by 1\u20132 cm H\u2082O after scoliosis surgery if the trend shows desaturations.",
+      "references": [
+        {
+          "label": "ATS Pediatric Home Ventilation Statement",
+          "url": "https://example.org/home-vent"
+        },
+        {
+          "label": "Mask fitting video link",
+          "url": "https://example.org/mask-fit"
+        }
+      ]
+    },
+    {
+      "id": "neurogenetics-wes-counseling",
+      "title": "Pre-test counseling for whole exome sequencing.",
+      "theme": "Neurogenetics",
+      "tags": [
+        "Family Counseling",
+        "Ethics",
+        "Diagnostics"
+      ],
+      "body": "Key steps\n- Confirm insurance authorization and sample logistics.\n- Review possible results: positive, negative, variant of uncertain significance.\n- Script: 'We will share unexpected findings that change adult health only if you opt in.'\n- Identify partner disciplines (genetic counselor, social worker) for follow-up questions.",
+      "references": [
+        {
+          "label": "ACMG consent checklist",
+          "url": "https://example.org/acmg-consent"
+        }
+      ]
+    },
+    {
+      "id": "eol-hospice-conversation",
+      "title": "Framing hospice conversations for progressive neuromuscular disease.",
+      "theme": "End-of-Life Care",
+      "tags": [
+        "Communication",
+        "Team Coaching",
+        "Family Support"
+      ],
+      "body": "Set the stage\n- Anchor to the family's stated goals from the last visit.\n- Offer parallel planning: 'We keep supporting rehab while planning for comfort.'\n- Invite interdisciplinary voices: respiratory therapy for secretion management, chaplain for caregiver grief.\nAfter visit\n- Update the shared checklist with who is covering 24/7 contact and equipment returns.",
+      "references": [
+        {
+          "label": "NHPCO Pediatric Hospice Conversation Guide",
+          "url": "https://example.org/nhpco-convo"
+        },
+        {
+          "label": "State hospice waiver summary",
+          "url": "https://example.org/state-waiver"
+        }
+      ]
+    }
+  ]
+}
+  </script>
+
+    <script type="text/python" id="py-data">
 from js import window
 from pyodide.ffi import to_js
 
@@ -1949,14 +2383,30 @@ window.initialData = to_js({
     const CARE_PLAN_STORAGE_KEY = 'cc-care-plan-draft';
     const CURRICULUM_STORAGE_KEY = 'cc-curriculum-layer';
 
+    function loadInitialDataset() {
+      if (window.initialData) {
+        return clone(window.initialData);
+      }
+      const fallbackScript = document.getElementById('initial-data-fallback');
+      if (fallbackScript) {
+        try {
+          const parsed = JSON.parse(fallbackScript.textContent);
+          window.initialData = parsed;
+          return clone(parsed);
+        } catch (error) {
+          console.error('Failed to parse embedded dataset.', error);
+        }
+      }
+      return { atlas: {}, practice: {}, curriculum: [] };
+    }
+
     async function boot() {
-      await ensurePyodideReady();
-      appData = window.initialData ?? { atlas: {}, practice: [], curriculum: [] };
-      practiceState = loadPracticeState(appData.practice);
+      appData = Object.assign({ atlas: {}, practice: {}, curriculum: [] }, loadInitialDataset());
+      practiceState = loadPracticeState(appData.practice || {});
       appData.practice = practiceState;
-      curriculumState = loadCurriculumState(appData.curriculum);
+      curriculumState = loadCurriculumState(appData.curriculum || []);
       appData.curriculum = curriculumState;
-      carePlanDraft = loadCarePlanDraft(practiceState.care_plan_defaults);
+      carePlanDraft = loadCarePlanDraft(practiceState.care_plan_defaults || {});
       renderTab('atlas');
       setupTabs();
       setupCommandBar();
@@ -1965,28 +2415,59 @@ window.initialData = to_js({
       renderChecklistTemplates();
       renderCurriculum();
       setupTemplateEditor();
+      initPyodideIfAvailable();
+    }
+
+    function initPyodideIfAvailable() {
+      const startPyodide = () => {
+        ensurePyodideReady().catch(error => {
+          console.error('Failed to initialize Pyodide; Python features will be disabled.', error);
+        });
+      };
+
+      if (typeof window.loadPyodide === 'function') {
+        startPyodide();
+        return;
+      }
+
+      const pyodideScript = document.querySelector('script[src*="pyodide"]');
+      if (!pyodideScript) {
+        console.warn('Pyodide script not found; skipping Python-powered helpers.');
+        return;
+      }
+
+      pyodideScript.addEventListener(
+        'load',
+        () => {
+          startPyodide();
+        },
+        { once: true },
+      );
+
+      pyodideScript.addEventListener(
+        'error',
+        () => {
+          console.warn('Pyodide script failed to load; Python-powered helpers will remain unavailable.');
+        },
+        { once: true },
+      );
     }
 
     async function ensurePyodideReady() {
       if (window.pyodideReady) return window.pyodideReady;
-      window.pyodideReady = new Promise(resolve => {
-        if (window.pyodide && window.loadPyodide) {
-          window.loadPyodide().then(() => {
-            window.pyodide.runPython(document.getElementById('py-data').textContent);
-            resolve();
-          });
-        } else {
-          const checkInterval = setInterval(() => {
-            if (window.loadPyodide) {
-              clearInterval(checkInterval);
-              window.loadPyodide().then(() => {
-                window.pyodide.runPython(document.getElementById('py-data').textContent);
-                resolve();
-              });
-            }
-          }, 20);
-        }
-      });
+      if (typeof window.loadPyodide !== 'function') {
+        return Promise.reject(new Error('Pyodide loader is not available.'));
+      }
+      const pySnippet = document.getElementById('py-data');
+      window.pyodideReady = window
+        .loadPyodide()
+        .then(pyodide => {
+          window.pyodide = pyodide;
+          if (pySnippet) {
+            pyodide.runPython(pySnippet.textContent);
+          }
+          return pyodide;
+        });
       return window.pyodideReady;
     }
 
