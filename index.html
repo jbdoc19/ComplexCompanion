@@ -159,6 +159,26 @@
       box-shadow: 0 0 0 3px var(--accent-soft);
     }
 
+    .text-area {
+      width: 100%;
+      border-radius: 12px;
+      background: var(--muted);
+      border: 1px solid transparent;
+      padding: 12px 16px;
+      color: var(--text);
+      font-size: 0.95rem;
+      font-family: inherit;
+      resize: vertical;
+      min-height: 88px;
+      transition: border var(--transition), box-shadow var(--transition);
+    }
+
+    .text-area:focus {
+      outline: none;
+      border-color: var(--accent);
+      box-shadow: 0 0 0 3px var(--accent-soft);
+    }
+
     .section-card {
       background: var(--surface);
       border-radius: var(--radius);
@@ -495,7 +515,351 @@
       border: 1px solid rgba(255, 255, 255, 0.08);
     }
 
-    .practice-board,
+    .practice-engine {
+      display: grid;
+      gap: 18px;
+    }
+
+    .practice-panel {
+      background: var(--surface);
+      border-radius: var(--radius);
+      border: 1px solid rgba(255, 255, 255, 0.05);
+      box-shadow: 0 18px 42px rgba(0, 0, 0, 0.35);
+      overflow: hidden;
+    }
+
+    .practice-panel summary {
+      list-style: none;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+      padding: clamp(18px, 2.5vw, 28px);
+      cursor: pointer;
+    }
+
+    .practice-panel summary::-webkit-details-marker {
+      display: none;
+    }
+
+    .practice-panel summary h3 {
+      margin: 0;
+      font-size: 1.15rem;
+    }
+
+    .practice-panel summary p {
+      margin: 4px 0 0;
+      color: var(--subtle);
+      font-size: 0.9rem;
+    }
+
+    .practice-panel[open] summary {
+      border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+    }
+
+    .practice-panel .panel-body {
+      padding: clamp(18px, 2.5vw, 28px);
+      display: grid;
+      gap: 18px;
+    }
+
+    .panel-controls {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .panel-controls .hint {
+      color: var(--subtle);
+      font-size: 0.85rem;
+    }
+
+    .panel-controls .control-group {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .huddle-card {
+      background: rgba(255, 255, 255, 0.02);
+      border: 1px solid rgba(255, 255, 255, 0.05);
+      border-radius: var(--radius);
+      padding: 18px;
+      display: grid;
+      gap: 14px;
+    }
+
+    .huddle-card-header {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      gap: 12px;
+      align-items: center;
+    }
+
+    .huddle-card-header .text-field {
+      min-width: 220px;
+      flex: 1;
+    }
+
+    .huddle-actions {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .checklist-section {
+      background: rgba(255, 255, 255, 0.02);
+      border-radius: 14px;
+      border: 1px solid rgba(255, 255, 255, 0.04);
+      padding: 16px;
+      display: grid;
+      gap: 12px;
+    }
+
+    .checklist-sections {
+      display: grid;
+      gap: 14px;
+    }
+
+    .checklist-section h4 {
+      font-size: 1rem;
+      margin: 0;
+    }
+
+    .section-description {
+      min-height: 72px;
+    }
+
+    .checklist-items {
+      display: grid;
+      gap: 10px;
+    }
+
+    .checklist-item {
+      display: grid;
+      grid-template-columns: auto 1fr auto;
+      gap: 10px;
+      align-items: center;
+      background: rgba(0, 0, 0, 0.25);
+      border-radius: 12px;
+      padding: 8px 12px;
+    }
+
+    .checklist-item input[type="checkbox"] {
+      width: 20px;
+      height: 20px;
+      accent-color: var(--accent);
+    }
+
+    .checklist-item .item-input {
+      background: transparent;
+      border: none;
+      color: var(--text);
+      font-size: 0.95rem;
+      width: 100%;
+    }
+
+    .checklist-item .item-input:focus {
+      outline: none;
+      border-bottom: 1px solid var(--accent);
+    }
+
+    .icon-button {
+      border: none;
+      background: rgba(255, 255, 255, 0.08);
+      color: var(--subtle);
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      cursor: pointer;
+      display: grid;
+      place-items: center;
+      font-size: 0.9rem;
+      transition: background var(--transition), color var(--transition);
+    }
+
+    .icon-button:hover {
+      background: rgba(31, 111, 120, 0.4);
+      color: var(--text);
+    }
+
+    .button.tertiary {
+      background: rgba(31, 111, 120, 0.2);
+      color: var(--accent);
+      border: 1px solid rgba(31, 111, 120, 0.55);
+    }
+
+    .focus-card {
+      max-width: 540px;
+    }
+
+    .focus-body {
+      display: grid;
+      gap: 16px;
+      max-height: 60vh;
+      overflow-y: auto;
+      padding-right: 4px;
+    }
+
+    .focus-section {
+      background: rgba(255, 255, 255, 0.02);
+      border-radius: 14px;
+      border: 1px solid rgba(255, 255, 255, 0.05);
+      padding: 16px;
+      display: grid;
+      gap: 12px;
+    }
+
+    .focus-section h3 {
+      margin: 0;
+      font-size: 1.05rem;
+    }
+
+    .focus-section p {
+      margin: 0;
+      color: var(--subtle);
+      font-size: 0.9rem;
+    }
+
+    .focus-items {
+      display: grid;
+      gap: 12px;
+    }
+
+    .focus-item {
+      display: grid;
+      grid-template-columns: auto 1fr;
+      gap: 16px;
+      align-items: center;
+      padding: 12px;
+      border-radius: 12px;
+      background: rgba(31, 111, 120, 0.18);
+      font-size: 1rem;
+    }
+
+    .focus-item input[type="checkbox"] {
+      width: 28px;
+      height: 28px;
+      accent-color: var(--accent);
+    }
+
+    .template-library-card {
+      background: rgba(255, 255, 255, 0.02);
+      border-radius: var(--radius);
+      border: 1px solid rgba(255, 255, 255, 0.05);
+      padding: 18px;
+      display: grid;
+      gap: 14px;
+    }
+
+    .template-library-card header {
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+
+    .template-library-card details {
+      background: rgba(255, 255, 255, 0.02);
+      border-radius: 12px;
+      border: 1px solid rgba(255, 255, 255, 0.04);
+      padding: 10px 14px;
+    }
+
+    .template-library-card summary {
+      list-style: none;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      cursor: pointer;
+      gap: 8px;
+    }
+
+    .template-library-card summary::-webkit-details-marker {
+      display: none;
+    }
+
+    .template-library-card ul {
+      margin: 10px 0 0;
+      padding-left: 18px;
+      color: var(--subtle);
+      display: grid;
+      gap: 6px;
+    }
+
+    .template-library-card .empty-note {
+      color: var(--subtle);
+      font-size: 0.85rem;
+      margin: 10px 0 0;
+    }
+
+    .template-library-card footer {
+      display: flex;
+      justify-content: flex-end;
+      gap: 8px;
+    }
+
+    .careplan-form {
+      display: grid;
+      gap: 16px;
+    }
+
+    .careplan-field {
+      display: grid;
+      gap: 8px;
+    }
+
+    .careplan-field span {
+      font-weight: 600;
+      font-size: 0.9rem;
+    }
+
+    .careplan-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      justify-content: flex-end;
+    }
+
+    .template-form {
+      display: grid;
+      gap: 16px;
+    }
+
+    .template-form .form-field {
+      display: grid;
+      gap: 6px;
+    }
+
+    .template-form .form-field span,
+    .template-form legend,
+    .template-form label span {
+      font-size: 0.9rem;
+      color: var(--subtle);
+      font-weight: 500;
+    }
+
+    .template-form textarea {
+      min-height: 90px;
+    }
+
+    .template-form fieldset {
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 12px;
+      padding: 12px 16px 16px;
+      display: grid;
+      gap: 12px;
+    }
+
+    .template-form fieldset label {
+      display: grid;
+      gap: 6px;
+    }
+
     .curriculum-board {
       display: grid;
       gap: 16px;
@@ -642,6 +1006,73 @@
     </div>
   </div>
 
+  <div class="overlay" id="huddle-overlay" aria-hidden="true">
+    <div class="overlay-card focus-card">
+      <div class="section-header">
+        <div>
+          <h2 id="focus-title" style="margin-bottom:4px;">Huddle Focus</h2>
+          <p id="focus-subtitle" style="margin:0;color:var(--subtle);font-size:0.9rem;">Stay on one flow at a time.</p>
+        </div>
+        <button class="button secondary" id="close-focus">Close</button>
+      </div>
+      <div id="focus-body" class="focus-body"></div>
+    </div>
+  </div>
+
+  <div class="overlay" id="template-overlay" aria-hidden="true">
+    <div class="overlay-card template-editor">
+      <div class="section-header">
+        <h2 id="template-editor-title">Update Template</h2>
+        <button class="button secondary" id="close-template-editor">Cancel</button>
+      </div>
+      <form id="template-editor-form" class="template-form">
+        <label class="form-field">
+          <span>Syndrome / Diagnosis</span>
+          <input type="text" id="template-syndrome" class="text-field" required />
+        </label>
+        <label class="form-field">
+          <span>HPI prompts</span>
+          <textarea id="template-hpi" class="text-area" rows="4" placeholder="One prompt per line" required></textarea>
+        </label>
+        <label class="form-field">
+          <span>Assessment / Plan frameworks</span>
+          <textarea id="template-ap" class="text-area" rows="4" placeholder="One framework per line" required></textarea>
+        </label>
+        <label class="form-field">
+          <span>Care coordination notes</span>
+          <textarea id="template-coordination" class="text-area" rows="3" placeholder="One note per line"></textarea>
+        </label>
+        <fieldset class="careplan-group">
+          <legend>Care plan defaults</legend>
+          <label>
+            <span>Patient goals</span>
+            <textarea id="template-goals" class="text-area" rows="3" placeholder="One goal per line"></textarea>
+          </label>
+          <label>
+            <span>Follow-up plan</span>
+            <textarea id="template-follow" class="text-area" rows="3" placeholder="One follow-up per line"></textarea>
+          </label>
+          <label>
+            <span>Medications</span>
+            <textarea id="template-meds" class="text-area" rows="3" placeholder="Medication notes"></textarea>
+          </label>
+          <label>
+            <span>Therapies</span>
+            <textarea id="template-therapies" class="text-area" rows="3" placeholder="Therapy plan"></textarea>
+          </label>
+          <label>
+            <span>Referrals</span>
+            <textarea id="template-referrals" class="text-area" rows="3" placeholder="Referral reminders"></textarea>
+          </label>
+        </fieldset>
+        <div class="action-row">
+          <button class="button secondary" type="button" id="delete-template">Delete</button>
+          <button class="button" type="submit">Save Template</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
   <script type="text/python" id="py-data">
 from js import window
 from pyodide.ffi import to_js
@@ -764,26 +1195,202 @@ atlas_data = {
     ]
 }
 
-practice_templates = [
-    {
-        "title": "Clinic Morning Huddle",
-        "items": [
-            "Overnight events & new admissions",
-            "Lab review & pending imaging",
-            "Discharge blocks & equipment needs",
-            "Education focus for the day"
-        ]
-    },
-    {
-        "title": "Pre-Visit Planning",
-        "items": [
-            "Update med list & allergies",
-            "Check authorizations expiring <30d",
-            "Prep adaptive equipment check",
-            "Flag outstanding referrals"
-        ]
+practice_templates = {
+    "checklists": [
+        {
+            "id": "preclinic",
+            "title": "Pre-Clinic Huddle",
+            "sections": [
+                {
+                    "title": "Med review",
+                    "description": "Spot red flags before the clinic day starts.",
+                    "items": [
+                        "Verify medication changes since last visit",
+                        "Check recent lab or imaging results that need review",
+                        "Confirm emergency medications and expiration dates"
+                    ]
+                },
+                {
+                    "title": "Equipment updates",
+                    "description": "Ensure positioning, mobility, and communication tools are ready.",
+                    "items": [
+                        "Inspect adaptive seating and straps",
+                        "Confirm backup communication device availability",
+                        "Flag urgent repair tickets"
+                    ]
+                },
+                {
+                    "title": "Goals for the day",
+                    "description": "Align on focus and teaching pearls.",
+                    "items": [
+                        "Share primary visit goal",
+                        "Assign learner teaching point",
+                        "Clarify discharge blockers"
+                    ]
+                }
+            ]
+        },
+        {
+            "id": "clinic",
+            "title": "Clinic Visit Touchpoints",
+            "sections": [
+                {
+                    "title": "Intake readiness",
+                    "description": "Keep flow smooth from arrival to exam.",
+                    "items": [
+                        "Confirm vitals and weight trend",
+                        "Review interim events since last visit",
+                        "Screen for caregiver concerns"
+                    ]
+                },
+                {
+                    "title": "Team sync",
+                    "description": "Everyone aligned before entering room.",
+                    "items": [
+                        "Share anticipated procedures",
+                        "Review safety considerations",
+                        "Confirm learner roles"
+                    ]
+                },
+                {
+                    "title": "Wrap-up",
+                    "description": "Close loop on plan and documentation.",
+                    "items": [
+                        "Summarize care plan with family",
+                        "Update task list and responsible owner",
+                        "Set follow-up reminders"
+                    ]
+                }
+            ]
+        },
+        {
+            "id": "meeting",
+            "title": "Team Meeting Prep",
+            "sections": [
+                {
+                    "title": "Agenda building",
+                    "description": "Keep the meeting mission-focused.",
+                    "items": [
+                        "Collect wins and urgent risks",
+                        "Prioritize referrals needing escalation",
+                        "Tag teaching cases"
+                    ]
+                },
+                {
+                    "title": "Data pulls",
+                    "description": "Have the right info on screen.",
+                    "items": [
+                        "Export census and LOS",
+                        "Update staffing grid",
+                        "Bring quality dashboard highlights"
+                    ]
+                },
+                {
+                    "title": "Action tracking",
+                    "description": "Leave with owners and due dates.",
+                    "items": [
+                        "Log tasks with responsible person",
+                        "Share teaching assignments",
+                        "Schedule follow-up touchpoints"
+                    ]
+                }
+            ]
+        }
+    ],
+    "templates": [
+        {
+            "id": "rett",
+            "syndrome": "Rett syndrome",
+            "hpi": [
+                "Regression timeline, seizure frequency, breathing irregularities",
+                "GI status: feeding tolerance, constipation, reflux",
+                "Daytime supports: school, therapies, respite"
+            ],
+            "assessment_plan": [
+                "Assess scoliosis progression and tone management",
+                "Review seizure control plan and rescue meds",
+                "Evaluate nutritional status and growth",
+                "Confirm augmentative communication supports"
+            ],
+            "care_coordination": [
+                "Sync with therapy team on equipment needs",
+                "Revisit home nursing or respite resources",
+                "Check DME repair timelines"
+            ],
+            "care_plan": {
+                "goals": [
+                    "Maintain comfort and participation in daily routines",
+                    "Support family confidence with seizure rescue plan"
+                ],
+                "follow_up": [
+                    "Neurology follow-up in 3 months or sooner for breakthrough seizures",
+                    "Therapy check-in monthly for positioning adjustments"
+                ],
+                "medications": [
+                    "Continue current anticonvulsant regimen; monitor side effects",
+                    "Assess need for bowel regimen adjustments"
+                ],
+                "therapies": [
+                    "PT/OT weekly focusing on posture and hand function",
+                    "Speech therapy for AAC coaching and caregiver training"
+                ],
+                "referrals": [
+                    "Nutrition for constipation management review",
+                    "Orthopedics for scoliosis monitoring"
+                ]
+            }
+        },
+        {
+            "id": "cp",
+            "syndrome": "Cerebral palsy",
+            "hpi": [
+                "Functional classification (GMFCS), mobility, communication",
+                "Spasticity management history and equipment use",
+                "Recent hospitalizations, caregiver goals"
+            ],
+            "assessment_plan": [
+                "Assess tone interventions (botox, baclofen, SDR)",
+                "Evaluate equipment fit: seating, gait trainers, orthotics",
+                "Review feeding safety and nutrition plan",
+                "Plan for school-based services and IEP coordination"
+            ],
+            "care_coordination": [
+                "Coordinate PT/OT/SLP schedules",
+                "Check Medicaid waiver or respite resources",
+                "Share caregiver education materials"
+            ],
+            "care_plan": {
+                "goals": [
+                    "Optimize comfort and participation in mobility routine",
+                    "Increase caregiver confidence with positioning program"
+                ],
+                "follow_up": [
+                    "Tone clinic follow-up in 6 months",
+                    "Orthotics check in 3 months or sooner if skin issues"
+                ],
+                "medications": [
+                    "Continue baclofen; titrate with therapy feedback",
+                    "Consider trial of nighttime muscle relaxant for spasms"
+                ],
+                "therapies": [
+                    "PT/OT twice weekly with stretching and strengthening focus",
+                    "Speech therapy for AAC system reinforcement"
+                ],
+                "referrals": [
+                    "Equipment vendor for gait trainer adjustments",
+                    "Social work for respite navigation"
+                ]
+            }
+        }
+    ],
+    "care_plan_defaults": {
+        "goals": "",
+        "follow_up": "",
+        "medications": "",
+        "therapies": "",
+        "referrals": ""
     }
-]
+}
 
 curriculum_tracks = [
     {
@@ -821,19 +1428,34 @@ window.initialData = to_js({
     const notesField = document.getElementById('notes-text');
     const globalSearchOverlay = document.getElementById('search-overlay');
     const checklistOverlay = document.getElementById('checklist-overlay');
+    const focusOverlay = document.getElementById('huddle-overlay');
+    const focusBody = document.getElementById('focus-body');
+    const focusTitle = document.getElementById('focus-title');
+    const templateOverlay = document.getElementById('template-overlay');
+    const templateForm = document.getElementById('template-editor-form');
     const commandButtons = document.querySelectorAll('.command-button');
 
     let appData = null;
+    let practiceState = null;
+    let carePlanDraft = null;
+    let activeFocusChecklist = null;
+    let editingTemplateId = null;
+    const PRACTICE_STORAGE_KEY = 'cc-practice-engine';
+    const CARE_PLAN_STORAGE_KEY = 'cc-care-plan-draft';
 
     async function boot() {
       await ensurePyodideReady();
       appData = window.initialData ?? { atlas: {}, practice: [], curriculum: [] };
+      practiceState = loadPracticeState(appData.practice);
+      appData.practice = practiceState;
+      carePlanDraft = loadCarePlanDraft(practiceState.care_plan_defaults);
       renderTab('atlas');
       setupTabs();
       setupCommandBar();
       setupNotes();
       renderChecklistTemplates();
       renderCurriculum();
+      setupTemplateEditor();
     }
 
     async function ensurePyodideReady() {
@@ -879,7 +1501,7 @@ window.initialData = to_js({
           tabPanels.appendChild(renderAtlasLayer(appData.atlas));
           break;
         case 'practice':
-          tabPanels.appendChild(renderPracticeLayer(appData.practice));
+          tabPanels.appendChild(renderPracticeLayer(practiceState));
           break;
         case 'curriculum':
           tabPanels.appendChild(renderCurriculumLayer(appData.curriculum));
@@ -1356,6 +1978,134 @@ window.initialData = to_js({
       });
     }
 
+    function clone(value) {
+      if (typeof structuredClone === 'function') {
+        try {
+          return structuredClone(value);
+        } catch (error) {
+          return JSON.parse(JSON.stringify(value));
+        }
+      }
+      return JSON.parse(JSON.stringify(value));
+    }
+
+    function normalizePracticeData(data) {
+      const source = data ? clone(data) : {};
+      return {
+        checklists: (source.checklists || []).map((checklist, index) => normalizeChecklist(checklist, index)),
+        templates: (source.templates || []).map((template, index) => normalizeTemplate(template, index)),
+        care_plan_defaults: Object.assign(
+          {
+            goals: '',
+            follow_up: '',
+            medications: '',
+            therapies: '',
+            referrals: ''
+          },
+          source.care_plan_defaults || {}
+        )
+      };
+    }
+
+    function normalizeChecklist(checklist, index) {
+      const baseId = checklist.id || `checklist-${index + 1}`;
+      return {
+        id: baseId,
+        title: checklist.title || `Checklist ${index + 1}`,
+        sections: (checklist.sections || []).map((section, sectionIndex) => ({
+          id: section.id || `${baseId}-section-${sectionIndex + 1}`,
+          title: section.title || `Section ${sectionIndex + 1}`,
+          description: section.description || '',
+          items: (section.items || []).map((item, itemIndex) => {
+            if (typeof item === 'string') {
+              return {
+                id: `${baseId}-${sectionIndex + 1}-${itemIndex + 1}`,
+                text: item,
+                checked: false
+              };
+            }
+            return {
+              id: item.id || `${baseId}-${sectionIndex + 1}-${itemIndex + 1}`,
+              text: item.text || '',
+              checked: Boolean(item.checked)
+            };
+          })
+        }))
+      };
+    }
+
+    function normalizeTemplate(template, index) {
+      const id = template.id || `template-${index + 1}`;
+      const toArray = (value) => {
+        if (!value) return [];
+        return Array.isArray(value) ? value : String(value).split('\n').map(item => item.trim()).filter(Boolean);
+      };
+      const carePlan = template.care_plan || {};
+      return {
+        id,
+        syndrome: template.syndrome || `Template ${index + 1}`,
+        hpi: toArray(template.hpi),
+        assessment_plan: toArray(template.assessment_plan || template.assessment),
+        care_coordination: toArray(template.care_coordination || template.coordination),
+        care_plan: {
+          goals: toArray(carePlan.goals),
+          follow_up: toArray(carePlan.follow_up),
+          medications: toArray(carePlan.medications),
+          therapies: toArray(carePlan.therapies),
+          referrals: toArray(carePlan.referrals)
+        }
+      };
+    }
+
+    function loadPracticeState(defaultData) {
+      const fallback = normalizePracticeData(defaultData);
+      try {
+        const saved = localStorage.getItem(PRACTICE_STORAGE_KEY);
+        if (saved) {
+          return normalizePracticeData(JSON.parse(saved));
+        }
+      } catch (error) {
+        console.warn('Unable to load practice data', error);
+      }
+      return fallback;
+    }
+
+    function persistPracticeState() {
+      try {
+        localStorage.setItem(PRACTICE_STORAGE_KEY, JSON.stringify(practiceState));
+      } catch (error) {
+        console.warn('Unable to save practice data', error);
+      }
+      renderChecklistTemplates();
+    }
+
+    function loadCarePlanDraft(defaults) {
+      const base = {
+        goals: Array.isArray(defaults.goals) ? defaults.goals.join('\n') : defaults.goals || '',
+        follow_up: Array.isArray(defaults.follow_up) ? defaults.follow_up.join('\n') : defaults.follow_up || '',
+        medications: Array.isArray(defaults.medications) ? defaults.medications.join('\n') : defaults.medications || '',
+        therapies: Array.isArray(defaults.therapies) ? defaults.therapies.join('\n') : defaults.therapies || '',
+        referrals: Array.isArray(defaults.referrals) ? defaults.referrals.join('\n') : defaults.referrals || ''
+      };
+      try {
+        const saved = localStorage.getItem(CARE_PLAN_STORAGE_KEY);
+        if (saved) {
+          return Object.assign(base, JSON.parse(saved));
+        }
+      } catch (error) {
+        console.warn('Unable to load care plan draft', error);
+      }
+      return base;
+    }
+
+    function persistCarePlanDraft() {
+      try {
+        localStorage.setItem(CARE_PLAN_STORAGE_KEY, JSON.stringify(carePlanDraft));
+      } catch (error) {
+        console.warn('Unable to save care plan draft', error);
+      }
+    }
+
     function saveTemplateToNotes(template) {
       notesField.value = `${notesField.value}\n\n${template}`.trim();
       localStorage.setItem('cc-notes', notesField.value);
@@ -1445,13 +2195,41 @@ window.initialData = to_js({
         }
       });
 
-      // Templates
-      (appData.practice || []).forEach(item => {
-        if (item.title.toLowerCase().includes(query)) {
+      // Huddle checklists
+      (practiceState.checklists || []).forEach(checklist => {
+        const haystack = [
+          checklist.title,
+          ...checklist.sections.flatMap(section => [
+            section.title,
+            section.description,
+            ...section.items.map(item => item.text)
+          ])
+        ].join(' ').toLowerCase();
+        if (haystack.includes(query)) {
+          const firstSection = checklist.sections[0];
+          const detail = firstSection && firstSection.items[0] ? firstSection.items[0].text : 'Checklist overview';
           matches.push({
             type: 'Checklist',
-            title: item.title,
-            detail: item.items[0]
+            title: checklist.title,
+            detail: detail
+          });
+        }
+      });
+
+      // Templates
+      (practiceState.templates || []).forEach(template => {
+        const haystack = [
+          template.syndrome,
+          ...template.hpi,
+          ...template.assessment_plan,
+          ...template.care_coordination
+        ].join(' ').toLowerCase();
+        if (haystack.includes(query)) {
+          const detail = template.hpi[0] || template.assessment_plan[0] || 'Template outline';
+          matches.push({
+            type: 'Template',
+            title: template.syndrome,
+            detail: detail
           });
         }
       });
@@ -1477,20 +2255,884 @@ window.initialData = to_js({
       });
     }
 
-    function renderPracticeLayer(templates) {
-      const section = document.createElement('section');
-      section.className = 'practice-board';
-      section.innerHTML = '<div class="section-card"><div class="section-header"><h3>Practice Board</h3><span style="color:var(--subtle);font-size:0.85rem;">Stay prepped for clinic and huddles.</span></div><div class="card-grid" id="practice-grid"></div></div>';
-      const grid = section.querySelector('#practice-grid');
-      templates.forEach(template => {
-        const card = document.createElement('article');
-        card.className = 'template-card';
-        card.innerHTML = `<h4 style="margin:0;">${template.title}</h4><ul>${template.items.map(item => `<li>${item}</li>`).join('')}</ul>`;
-        grid.appendChild(card);
-      });
-      return section;
+    function renderPracticeLayer(practice) {
+      const container = document.createElement('section');
+      container.className = 'practice-engine';
+      container.appendChild(buildChecklistPanel(practice.checklists));
+      container.appendChild(buildTemplatesPanel(practice.templates));
+      container.appendChild(buildCarePlanComposer(practice));
+      return container;
     }
 
+    function buildChecklistPanel(checklists) {
+      const panel = document.createElement('details');
+      panel.className = 'practice-panel';
+      panel.open = true;
+
+      const summary = document.createElement('summary');
+      summary.innerHTML = `
+        <div>
+          <h3>Huddle Checklists</h3>
+          <p>Pre-clinic, visit, and meeting flows ready for reuse.</p>
+        </div>
+        <svg width="18" height="18" viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M6 8l4 4 4-4" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      `;
+      panel.appendChild(summary);
+
+      const body = document.createElement('div');
+      body.className = 'panel-body';
+
+      const controls = document.createElement('div');
+      controls.className = 'panel-controls';
+      controls.innerHTML = `
+        <span class="hint">Edit anything — changes stay on this device.</span>
+        <div class="control-group">
+          <button class="button tertiary" type="button" id="add-checklist">+ Add checklist</button>
+        </div>
+      `;
+      body.appendChild(controls);
+
+      const cards = document.createElement('div');
+      cards.className = 'card-grid';
+      (checklists || []).forEach(checklist => cards.appendChild(buildChecklistCard(checklist)));
+      body.appendChild(cards);
+
+      panel.appendChild(body);
+
+      const addButton = controls.querySelector('#add-checklist');
+      addButton.addEventListener('click', () => addChecklist());
+
+      return panel;
+    }
+
+    function buildChecklistCard(checklist) {
+      const card = document.createElement('article');
+      card.className = 'huddle-card';
+      card.dataset.checklistId = checklist.id;
+
+      const header = document.createElement('div');
+      header.className = 'huddle-card-header';
+
+      const titleField = document.createElement('input');
+      titleField.type = 'text';
+      titleField.className = 'text-field';
+      titleField.value = checklist.title;
+      titleField.placeholder = 'Checklist title';
+      titleField.addEventListener('input', (event) => {
+        checklist.title = event.target.value;
+        persistPracticeState();
+        syncFocusTitle(checklist.id, checklist.title);
+      });
+
+      const actions = document.createElement('div');
+      actions.className = 'huddle-actions';
+
+      const duplicateButton = document.createElement('button');
+      duplicateButton.type = 'button';
+      duplicateButton.className = 'button secondary';
+      duplicateButton.textContent = 'Duplicate';
+      duplicateButton.addEventListener('click', () => duplicateChecklist(checklist.id));
+
+      const focusButton = document.createElement('button');
+      focusButton.type = 'button';
+      focusButton.className = 'button';
+      focusButton.textContent = 'Start Huddle';
+      focusButton.addEventListener('click', () => openFocusMode(checklist.id));
+
+      actions.appendChild(duplicateButton);
+      actions.appendChild(focusButton);
+
+      header.appendChild(titleField);
+      header.appendChild(actions);
+
+      const sectionsWrapper = document.createElement('div');
+      sectionsWrapper.className = 'checklist-sections';
+      checklist.sections.forEach(section => {
+        sectionsWrapper.appendChild(buildChecklistSection(checklist, section));
+      });
+
+      card.appendChild(header);
+      card.appendChild(sectionsWrapper);
+      return card;
+    }
+
+    function buildChecklistSection(checklist, section) {
+      const wrapper = document.createElement('section');
+      wrapper.className = 'checklist-section';
+      wrapper.dataset.sectionId = section.id;
+
+      const titleField = document.createElement('input');
+      titleField.type = 'text';
+      titleField.className = 'text-field';
+      titleField.value = section.title;
+      titleField.placeholder = 'Section title';
+      titleField.addEventListener('input', (event) => {
+        section.title = event.target.value;
+        persistPracticeState();
+        syncFocusSectionTitle(checklist.id, section.id, section.title);
+      });
+
+      const descriptionField = document.createElement('textarea');
+      descriptionField.className = 'text-area section-description';
+      descriptionField.value = section.description;
+      descriptionField.placeholder = 'Add context or teaching notes';
+      descriptionField.addEventListener('input', (event) => {
+        section.description = event.target.value;
+        persistPracticeState();
+        syncFocusSectionDescription(checklist.id, section.id, section.description);
+      });
+
+      const itemsList = document.createElement('div');
+      itemsList.className = 'checklist-items';
+      section.items.forEach(item => {
+        itemsList.appendChild(buildChecklistItem(checklist, section, item));
+      });
+
+      const addItemButton = document.createElement('button');
+      addItemButton.type = 'button';
+      addItemButton.className = 'button tertiary';
+      addItemButton.textContent = '+ Add item';
+      addItemButton.addEventListener('click', () => {
+        const newItem = {
+          id: `${section.id}-item-${Date.now()}`,
+          text: 'New checklist item',
+          checked: false
+        };
+        section.items.push(newItem);
+        const newRow = buildChecklistItem(checklist, section, newItem);
+        itemsList.appendChild(newRow);
+        persistPracticeState();
+        appendFocusItem(checklist.id, section.id, newItem);
+        const input = newRow.querySelector('.item-input');
+        if (input) input.focus();
+      });
+
+      wrapper.appendChild(titleField);
+      wrapper.appendChild(descriptionField);
+      wrapper.appendChild(itemsList);
+      wrapper.appendChild(addItemButton);
+      return wrapper;
+    }
+
+    function buildChecklistItem(checklist, section, item) {
+      const row = document.createElement('div');
+      row.className = 'checklist-item';
+
+      const checkbox = document.createElement('input');
+      checkbox.type = 'checkbox';
+      checkbox.checked = item.checked;
+      checkbox.dataset.checklistId = checklist.id;
+      checkbox.dataset.sectionId = section.id;
+      checkbox.dataset.itemId = item.id;
+      checkbox.addEventListener('change', (event) => {
+        item.checked = event.target.checked;
+        persistPracticeState();
+        syncFocusCheckbox(checklist.id, item.id, item.checked);
+      });
+
+      const textInput = document.createElement('input');
+      textInput.type = 'text';
+      textInput.className = 'item-input';
+      textInput.value = item.text;
+      textInput.placeholder = 'Checklist step';
+      textInput.addEventListener('input', (event) => {
+        item.text = event.target.value;
+        persistPracticeState();
+        syncFocusItemText(checklist.id, item.id, item.text);
+      });
+
+      const deleteButton = document.createElement('button');
+      deleteButton.type = 'button';
+      deleteButton.className = 'icon-button';
+      deleteButton.setAttribute('aria-label', 'Remove checklist item');
+      deleteButton.innerHTML = '&times;';
+      deleteButton.addEventListener('click', () => {
+        const index = section.items.findIndex(candidate => candidate.id === item.id);
+        if (index !== -1) {
+          section.items.splice(index, 1);
+        }
+        row.remove();
+        persistPracticeState();
+        removeFocusItem(checklist.id, item.id);
+      });
+
+      row.appendChild(checkbox);
+      row.appendChild(textInput);
+      row.appendChild(deleteButton);
+      return row;
+    }
+
+    function buildTemplatesPanel(templates) {
+      const panel = document.createElement('details');
+      panel.className = 'practice-panel';
+      panel.open = true;
+
+      const summary = document.createElement('summary');
+      summary.innerHTML = `
+        <div>
+          <h3>Templates</h3>
+          <p>Search HPI, A/P, and coordination frameworks by syndrome.</p>
+        </div>
+        <svg width="18" height="18" viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M6 8l4 4 4-4" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      `;
+      panel.appendChild(summary);
+
+      const body = document.createElement('div');
+      body.className = 'panel-body';
+
+      const controls = document.createElement('div');
+      controls.className = 'panel-controls';
+
+      const search = document.createElement('input');
+      search.type = 'search';
+      search.className = 'text-field';
+      search.placeholder = 'Find template for Rett syndrome.';
+
+      const updateButton = document.createElement('button');
+      updateButton.type = 'button';
+      updateButton.className = 'button tertiary';
+      updateButton.textContent = '+ Update Template';
+      updateButton.addEventListener('click', () => openTemplateEditor());
+
+      const controlGroup = document.createElement('div');
+      controlGroup.className = 'control-group';
+      controlGroup.appendChild(updateButton);
+
+      controls.appendChild(search);
+      controls.appendChild(controlGroup);
+
+      const list = document.createElement('div');
+      list.className = 'card-grid';
+
+      (templates || []).forEach(template => {
+        list.appendChild(buildTemplateCard(template));
+      });
+
+      search.addEventListener('input', (event) => {
+        const query = event.target.value.trim().toLowerCase();
+        list.querySelectorAll('.template-library-card').forEach(card => {
+          const haystack = card.dataset.haystack;
+          card.style.display = !query || haystack.includes(query) ? 'grid' : 'none';
+        });
+      });
+
+      body.appendChild(controls);
+      body.appendChild(list);
+      panel.appendChild(body);
+      return panel;
+    }
+
+    function buildTemplateCard(template) {
+      const card = document.createElement('article');
+      card.className = 'template-library-card';
+      const haystack = [
+        template.syndrome,
+        ...(template.hpi || []),
+        ...(template.assessment_plan || []),
+        ...(template.care_coordination || [])
+      ].join(' ').toLowerCase();
+      card.dataset.haystack = haystack;
+
+      const header = document.createElement('header');
+      header.innerHTML = `
+        <div>
+          <h4 style="margin:0 0 4px;">${template.syndrome}</h4>
+          <span style="color:var(--subtle);font-size:0.85rem;">${template.hpi.length} HPI prompts • ${template.assessment_plan.length} A/P guides</span>
+        </div>
+      `;
+
+      const editButton = document.createElement('button');
+      editButton.type = 'button';
+      editButton.className = 'button secondary';
+      editButton.textContent = 'Edit';
+      editButton.addEventListener('click', () => openTemplateEditor(template.id));
+      header.appendChild(editButton);
+
+      card.appendChild(header);
+      card.appendChild(buildTemplateSection('HPI prompts', template.hpi));
+      card.appendChild(buildTemplateSection('Assessment / Plan frameworks', template.assessment_plan));
+      card.appendChild(buildTemplateSection('Care coordination notes', template.care_coordination));
+
+      if (template.care_plan) {
+        const detailsEl = document.createElement('details');
+        detailsEl.open = false;
+        detailsEl.innerHTML = `
+          <summary>
+            <strong>Care plan defaults</strong>
+            <span style="color:var(--subtle);font-size:0.8rem;">Tap to preview suggested plan scaffold.</span>
+          </summary>
+        `;
+        const planList = document.createElement('div');
+        planList.className = 'careplan-form';
+        ['goals', 'follow_up', 'medications', 'therapies', 'referrals'].forEach(key => {
+          const values = template.care_plan[key] || [];
+          const block = document.createElement('div');
+          block.className = 'careplan-field';
+          block.innerHTML = `<span>${formatCarePlanLabel(key)}</span>${values.length ? `<ul>${values.map(item => `<li>${item}</li>`).join('')}</ul>` : '<p class="empty-note">No defaults saved.</p>'}`;
+          planList.appendChild(block);
+        });
+        detailsEl.appendChild(planList);
+        card.appendChild(detailsEl);
+      }
+
+      return card;
+    }
+
+    function buildTemplateSection(title, items) {
+      const detailsEl = document.createElement('details');
+      detailsEl.open = false;
+      detailsEl.innerHTML = `
+        <summary>
+          <strong>${title}</strong>
+          <svg width="16" height="16" viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M6 8l4 4 4-4" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </summary>
+      `;
+      if (items && items.length) {
+        detailsEl.innerHTML += `<ul>${items.map(item => `<li>${item}</li>`).join('')}</ul>`;
+      } else {
+        detailsEl.innerHTML += '<p class="empty-note">No prompts saved yet.</p>';
+      }
+      return detailsEl;
+    }
+
+    function buildCarePlanComposer(practice) {
+      const panel = document.createElement('details');
+      panel.className = 'practice-panel';
+      panel.open = true;
+
+      const summary = document.createElement('summary');
+      summary.innerHTML = `
+        <div>
+          <h3>Care Plan Composer</h3>
+          <p>Pull goals, follow-up, and referrals into a shareable draft.</p>
+        </div>
+        <svg width="18" height="18" viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M6 8l4 4 4-4" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      `;
+      panel.appendChild(summary);
+
+      const body = document.createElement('div');
+      body.className = 'panel-body';
+
+      const controls = document.createElement('div');
+      controls.className = 'panel-controls';
+      const templateSelect = document.createElement('select');
+      templateSelect.className = 'text-field';
+      templateSelect.innerHTML = '<option value="">Use saved template…</option>';
+      practice.templates.forEach(template => {
+        const option = document.createElement('option');
+        option.value = template.id;
+        option.textContent = template.syndrome;
+        templateSelect.appendChild(option);
+      });
+
+      const hint = document.createElement('span');
+      hint.className = 'hint';
+      hint.textContent = 'Modify freely before copying or exporting.';
+
+      const selectGroup = document.createElement('div');
+      selectGroup.className = 'control-group';
+      selectGroup.appendChild(templateSelect);
+
+      controls.appendChild(hint);
+      controls.appendChild(selectGroup);
+
+      const form = document.createElement('div');
+      form.className = 'careplan-form';
+
+      const fields = {
+        goals: createCarePlanField('Patient Goals', 'goals', carePlanDraft.goals),
+        follow_up: createCarePlanField('Follow-Up Plan', 'follow_up', carePlanDraft.follow_up),
+        medications: createCarePlanField('Medications', 'medications', carePlanDraft.medications),
+        therapies: createCarePlanField('Therapies', 'therapies', carePlanDraft.therapies),
+        referrals: createCarePlanField('Referrals', 'referrals', carePlanDraft.referrals)
+      };
+
+      Object.values(fields).forEach(field => form.appendChild(field.wrapper));
+
+      const actions = document.createElement('div');
+      actions.className = 'careplan-actions';
+
+      const copyButton = document.createElement('button');
+      copyButton.type = 'button';
+      copyButton.className = 'button';
+      copyButton.textContent = 'Copy to clipboard';
+      copyButton.addEventListener('click', () => copyCarePlan(fields));
+
+      const txtButton = document.createElement('button');
+      txtButton.type = 'button';
+      txtButton.className = 'button secondary';
+      txtButton.textContent = 'Export .txt';
+      txtButton.addEventListener('click', () => exportCarePlan(fields, 'txt'));
+
+      const pdfButton = document.createElement('button');
+      pdfButton.type = 'button';
+      pdfButton.className = 'button secondary';
+      pdfButton.textContent = 'Export .pdf';
+      pdfButton.addEventListener('click', () => exportCarePlan(fields, 'pdf'));
+
+      actions.appendChild(copyButton);
+      actions.appendChild(txtButton);
+      actions.appendChild(pdfButton);
+
+      templateSelect.addEventListener('change', (event) => {
+        const templateId = event.target.value;
+        if (!templateId) return;
+        applyTemplateToCarePlan(templateId, fields);
+      });
+
+      body.appendChild(controls);
+      body.appendChild(form);
+      body.appendChild(actions);
+      panel.appendChild(body);
+      return panel;
+    }
+
+    function createCarePlanField(label, key, value) {
+      const wrapper = document.createElement('label');
+      wrapper.className = 'careplan-field';
+      wrapper.innerHTML = `<span>${label}</span>`;
+      const textarea = document.createElement('textarea');
+      textarea.className = 'text-area';
+      textarea.value = value || '';
+      textarea.dataset.fieldKey = key;
+      textarea.addEventListener('input', (event) => {
+        carePlanDraft[key] = event.target.value;
+        persistCarePlanDraft();
+      });
+      wrapper.appendChild(textarea);
+      return { wrapper, textarea };
+    }
+
+    function formatCarePlanLabel(key) {
+      switch (key) {
+        case 'goals':
+          return 'Patient Goals';
+        case 'follow_up':
+          return 'Follow-Up Plan';
+        case 'medications':
+          return 'Medications';
+        case 'therapies':
+          return 'Therapies';
+        default:
+          return 'Referrals';
+      }
+    }
+
+    function applyTemplateToCarePlan(templateId, fields) {
+      const template = practiceState.templates.find(item => item.id === templateId);
+      if (!template) return;
+      const plan = template.care_plan || {};
+      ['goals', 'follow_up', 'medications', 'therapies', 'referrals'].forEach(key => {
+        const text = (plan[key] || []).join('
+');
+        carePlanDraft[key] = text;
+        if (fields[key]) {
+          fields[key].textarea.value = text;
+        }
+      });
+      persistCarePlanDraft();
+    }
+
+    function gatherCarePlanText(fields) {
+      const sections = [];
+      Object.entries(fields).forEach(([key, field]) => {
+        const title = formatCarePlanLabel(key);
+        const value = field.textarea.value.trim();
+        if (value) {
+          sections.push(`${title}:`);
+          sections.push(value);
+          sections.push('');
+        }
+      });
+      return sections.join('
+').trim();
+    }
+
+    async function copyCarePlan(fields) {
+      const content = gatherCarePlanText(fields);
+      if (!content) {
+        flashMessage('Care plan is empty. Add content first.');
+        return;
+      }
+      try {
+        await navigator.clipboard.writeText(content);
+        flashMessage('Care plan copied to clipboard.');
+      } catch (error) {
+        flashMessage('Clipboard unavailable. Copy manually.');
+      }
+    }
+
+    function exportCarePlan(fields, format) {
+      const content = gatherCarePlanText(fields);
+      if (!content) {
+        flashMessage('Care plan is empty.');
+        return;
+      }
+      if (format === 'txt') {
+        const blob = new Blob([content], { type: 'text/plain' });
+        const url = URL.createObjectURL(blob);
+        const link = document.createElement('a');
+        link.href = url;
+        link.download = 'care-plan.txt';
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+        URL.revokeObjectURL(url);
+        flashMessage('Downloaded care-plan.txt');
+        return;
+      }
+
+      const printable = window.open('', '_blank', 'width=780,height=900');
+      if (!printable) {
+        flashMessage('Popup blocked. Allow popups to export PDF.');
+        return;
+      }
+      const escaped = content
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/
+/g, '<br/>');
+      printable.document.write(`<!DOCTYPE html><html><head><title>Care Plan</title><style>body{font-family:Inter,Arial,sans-serif;padding:40px;line-height:1.5;background:#fff;color:#111;} h1{margin-top:0;font-size:1.6rem;} .section{margin-bottom:18px;} .section h2{font-size:1.1rem;margin:0 0 6px;} .section p{margin:0;}</style></head><body><h1>Care Plan</h1><div>${escaped}</div></body></html>`);
+      printable.document.close();
+      printable.focus();
+      printable.print();
+    }
+
+    function addChecklist() {
+      const id = `checklist-${Date.now()}`;
+      const newChecklist = {
+        id,
+        title: 'New Huddle',
+        sections: [
+          {
+            id: `${id}-section-1`,
+            title: 'Med review',
+            description: '',
+            items: []
+          }
+        ]
+      };
+      practiceState.checklists.push(newChecklist);
+      persistPracticeState();
+      if (isPracticeActive()) {
+        renderTab('practice');
+      }
+    }
+
+    function duplicateChecklist(checklistId) {
+      const source = practiceState.checklists.find(item => item.id === checklistId);
+      if (!source) return;
+      const copy = clone(source);
+      copy.id = `${source.id}-copy-${Date.now()}`;
+      copy.title = `${source.title} (copy)`;
+      copy.sections = copy.sections.map((section, sectionIndex) => ({
+        id: `${copy.id}-section-${sectionIndex + 1}`,
+        title: section.title,
+        description: section.description,
+        items: section.items.map((item, itemIndex) => ({
+          id: `${copy.id}-${sectionIndex + 1}-${itemIndex + 1}`,
+          text: item.text,
+          checked: false
+        }))
+      }));
+      practiceState.checklists.push(copy);
+      persistPracticeState();
+      if (isPracticeActive()) {
+        renderTab('practice');
+      }
+    }
+
+    function isPracticeActive() {
+      const practiceButton = document.querySelector('.tab-button[data-tab="practice"]');
+      return practiceButton && practiceButton.classList.contains('active');
+    }
+
+    function openFocusMode(checklistId) {
+      const checklist = practiceState.checklists.find(item => item.id === checklistId);
+      if (!checklist) return;
+      activeFocusChecklist = checklistId;
+      focusTitle.textContent = checklist.title || 'Huddle Focus';
+      const subtitle = document.getElementById('focus-subtitle');
+      if (subtitle) {
+        const totalItems = checklist.sections.reduce((sum, section) => sum + section.items.length, 0);
+        subtitle.textContent = `${checklist.sections.length} sections • ${totalItems} checkpoints`;
+      }
+      focusBody.innerHTML = '';
+      checklist.sections.forEach(section => {
+        const block = document.createElement('article');
+        block.className = 'focus-section';
+        block.dataset.sectionId = section.id;
+        block.innerHTML = `
+          <div>
+            <h3>${section.title || 'Section'}</h3>
+            <p>${section.description || ''}</p>
+          </div>
+        `;
+        const list = document.createElement('div');
+        list.className = 'focus-items';
+        section.items.forEach(item => {
+          list.appendChild(createFocusItemRow(checklistId, section.id, item));
+        });
+        block.appendChild(list);
+        focusBody.appendChild(block);
+      });
+      toggleOverlay(focusOverlay, true);
+    }
+
+    function closeFocusOverlay() {
+      activeFocusChecklist = null;
+      toggleOverlay(focusOverlay, false);
+      const subtitle = document.getElementById('focus-subtitle');
+      if (subtitle) {
+        subtitle.textContent = 'Stay on one flow at a time.';
+      }
+    }
+
+    function createFocusItemRow(checklistId, sectionId, item) {
+      const row = document.createElement('label');
+      row.className = 'focus-item';
+      row.dataset.itemId = item.id;
+      row.dataset.sectionId = sectionId;
+      const checkbox = document.createElement('input');
+      checkbox.type = 'checkbox';
+      checkbox.checked = item.checked;
+      checkbox.addEventListener('change', () => {
+        item.checked = checkbox.checked;
+        persistPracticeState();
+        const mainCheckbox = document.querySelector(`.checklist-item input[data-item-id="${item.id}"]`);
+        if (mainCheckbox) {
+          mainCheckbox.checked = item.checked;
+        }
+      });
+      const text = document.createElement('span');
+      text.textContent = item.text;
+      row.appendChild(checkbox);
+      row.appendChild(text);
+      return row;
+    }
+
+    function syncFocusTitle(checklistId, title) {
+      if (activeFocusChecklist !== checklistId) return;
+      focusTitle.textContent = title || 'Huddle Focus';
+    }
+
+    function syncFocusSectionTitle(checklistId, sectionId, title) {
+      if (activeFocusChecklist !== checklistId) return;
+      const section = focusBody.querySelector(`[data-section-id="${sectionId}"] h3`);
+      if (section) {
+        section.textContent = title || 'Section';
+      }
+    }
+
+    function syncFocusSectionDescription(checklistId, sectionId, description) {
+      if (activeFocusChecklist !== checklistId) return;
+      const section = focusBody.querySelector(`[data-section-id="${sectionId}"] p`);
+      if (section) {
+        section.textContent = description || '';
+      }
+    }
+
+    function syncFocusItemText(checklistId, itemId, text) {
+      if (activeFocusChecklist !== checklistId) return;
+      const label = focusBody.querySelector(`[data-item-id="${itemId}"] span`);
+      if (label) {
+        label.textContent = text;
+      }
+    }
+
+    function syncFocusCheckbox(checklistId, itemId, checked) {
+      if (activeFocusChecklist !== checklistId) return;
+      const checkbox = focusBody.querySelector(`[data-item-id="${itemId}"] input[type="checkbox"]`);
+      if (checkbox) {
+        checkbox.checked = checked;
+      }
+    }
+
+    function appendFocusItem(checklistId, sectionId, item) {
+      if (activeFocusChecklist !== checklistId) return;
+      const list = focusBody.querySelector(`[data-section-id="${sectionId}"] .focus-items`);
+      if (list) {
+        list.appendChild(createFocusItemRow(checklistId, sectionId, item));
+      }
+    }
+
+    function removeFocusItem(checklistId, itemId) {
+      if (activeFocusChecklist !== checklistId) return;
+      const row = focusBody.querySelector(`[data-item-id="${itemId}"]`);
+      if (row) {
+        row.remove();
+      }
+    }
+
+    function setupTemplateEditor() {
+      const closeFocusButton = document.getElementById('close-focus');
+      if (closeFocusButton) {
+        closeFocusButton.addEventListener('click', () => closeFocusOverlay());
+      }
+      focusOverlay.addEventListener('click', (event) => {
+        if (event.target === focusOverlay) closeFocusOverlay();
+      });
+
+      const closeTemplateButton = document.getElementById('close-template-editor');
+      if (closeTemplateButton) {
+        closeTemplateButton.addEventListener('click', () => toggleTemplateEditor(false));
+      }
+      templateOverlay.addEventListener('click', (event) => {
+        if (event.target === templateOverlay) toggleTemplateEditor(false);
+      });
+
+      templateForm.addEventListener('submit', handleTemplateSubmit);
+      const deleteButton = document.getElementById('delete-template');
+      if (deleteButton) {
+        deleteButton.addEventListener('click', handleTemplateDelete);
+        deleteButton.style.display = 'none';
+      }
+    }
+
+    function toggleTemplateEditor(open) {
+      if (open) {
+        toggleOverlay(templateOverlay, true);
+      } else {
+        toggleOverlay(templateOverlay, false);
+        templateForm.reset();
+        editingTemplateId = null;
+        const deleteButton = document.getElementById('delete-template');
+        if (deleteButton) {
+          deleteButton.style.display = 'none';
+        }
+        document.getElementById('template-editor-title').textContent = 'Update Template';
+      }
+    }
+
+    function openTemplateEditor(templateId) {
+      const syndromeField = document.getElementById('template-syndrome');
+      const hpiField = document.getElementById('template-hpi');
+      const apField = document.getElementById('template-ap');
+      const coordinationField = document.getElementById('template-coordination');
+      const goalsField = document.getElementById('template-goals');
+      const followField = document.getElementById('template-follow');
+      const medsField = document.getElementById('template-meds');
+      const therapiesField = document.getElementById('template-therapies');
+      const referralsField = document.getElementById('template-referrals');
+      const titleEl = document.getElementById('template-editor-title');
+      const deleteButton = document.getElementById('delete-template');
+
+      if (templateId) {
+        const template = practiceState.templates.find(item => item.id === templateId);
+        if (!template) return;
+        editingTemplateId = templateId;
+        titleEl.textContent = `Edit ${template.syndrome}`;
+        syndromeField.value = template.syndrome;
+        hpiField.value = template.hpi.join('\n');
+        apField.value = template.assessment_plan.join('\n');
+        coordinationField.value = template.care_coordination.join('\n');
+        goalsField.value = (template.care_plan.goals || []).join('\n');
+        followField.value = (template.care_plan.follow_up || []).join('\n');
+        medsField.value = (template.care_plan.medications || []).join('\n');
+        therapiesField.value = (template.care_plan.therapies || []).join('\n');
+        referralsField.value = (template.care_plan.referrals || []).join('\n');
+        deleteButton.style.display = 'inline-flex';
+      } else {
+        editingTemplateId = null;
+        templateForm.reset();
+        titleEl.textContent = 'Add Template';
+        deleteButton.style.display = 'none';
+      }
+
+      toggleTemplateEditor(true);
+      requestAnimationFrame(() => syndromeField.focus());
+    }
+
+    function handleTemplateSubmit(event) {
+      event.preventDefault();
+      const syndromeField = document.getElementById('template-syndrome');
+      const hpiField = document.getElementById('template-hpi');
+      const apField = document.getElementById('template-ap');
+      const coordinationField = document.getElementById('template-coordination');
+      const goalsField = document.getElementById('template-goals');
+      const followField = document.getElementById('template-follow');
+      const medsField = document.getElementById('template-meds');
+      const therapiesField = document.getElementById('template-therapies');
+      const referralsField = document.getElementById('template-referrals');
+
+      const syndrome = syndromeField.value.trim();
+      if (!syndrome) {
+        syndromeField.focus();
+        return;
+      }
+
+      const payload = {
+        id: editingTemplateId || ensureUniqueTemplateId(slugify(syndrome)),
+        syndrome,
+        hpi: parseTextAreaLines(hpiField.value),
+        assessment_plan: parseTextAreaLines(apField.value),
+        care_coordination: parseTextAreaLines(coordinationField.value),
+        care_plan: {
+          goals: parseTextAreaLines(goalsField.value),
+          follow_up: parseTextAreaLines(followField.value),
+          medications: parseTextAreaLines(medsField.value),
+          therapies: parseTextAreaLines(therapiesField.value),
+          referrals: parseTextAreaLines(referralsField.value)
+        }
+      };
+
+      if (editingTemplateId) {
+        const existing = practiceState.templates.find(item => item.id === editingTemplateId);
+        if (existing) {
+          Object.assign(existing, payload);
+        }
+      } else {
+        practiceState.templates.push(payload);
+      }
+
+      persistPracticeState();
+      toggleTemplateEditor(false);
+      if (isPracticeActive()) {
+        renderTab('practice');
+      }
+    }
+
+    function handleTemplateDelete() {
+      if (!editingTemplateId) {
+        toggleTemplateEditor(false);
+        return;
+      }
+      const index = practiceState.templates.findIndex(item => item.id === editingTemplateId);
+      if (index !== -1) {
+        practiceState.templates.splice(index, 1);
+        persistPracticeState();
+      }
+      toggleTemplateEditor(false);
+      if (isPracticeActive()) {
+        renderTab('practice');
+      }
+    }
+
+    function parseTextAreaLines(value) {
+      return value
+        .split('\n')
+        .map(line => line.trim())
+        .filter(Boolean);
+    }
+
+    function slugify(value) {
+      return value
+        .toLowerCase()
+        .replace(/[^a-z0-9]+/g, '-')
+        .replace(/(^-|-$)/g, '') || 'template';
+    }
+
+    function ensureUniqueTemplateId(baseId) {
+      const existingIds = new Set(practiceState.templates.map(item => item.id));
+      let candidate = baseId;
+      let counter = 1;
+      while (existingIds.has(candidate)) {
+        candidate = `${baseId}-${counter}`;
+        counter += 1;
+      }
+      return candidate;
+    }
     function renderCurriculumLayer(tracks) {
       const section = document.createElement('section');
       section.className = 'curriculum-board';
@@ -1507,11 +3149,18 @@ window.initialData = to_js({
 
     function renderChecklistTemplates() {
       const list = document.getElementById('checklist-list');
+      if (!list) return;
       list.innerHTML = '';
-      (appData.practice || []).forEach(template => {
+      (practiceState.checklists || []).forEach(checklist => {
         const card = document.createElement('article');
         card.className = 'guideline-result';
-        card.innerHTML = `<h4 style="margin:0 0 6px;">${template.title}</h4><ul>${template.items.map(item => `<li>${item}</li>`).join('')}</ul>`;
+        const firstSection = checklist.sections[0];
+        const previewItems = firstSection ? firstSection.items.slice(0, 4) : [];
+        card.innerHTML = `
+          <h4 style="margin:0 0 6px;">${checklist.title}</h4>
+          ${firstSection ? `<p style="margin:0 0 10px;color:var(--subtle);font-size:0.85rem;">${firstSection.title}</p>` : ''}
+          <ul>${previewItems.map(item => `<li>${item.text}</li>`).join('')}</ul>
+        `;
         list.appendChild(card);
       });
     }
