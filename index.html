@@ -515,6 +515,89 @@
       border: 1px solid rgba(255, 255, 255, 0.08);
     }
 
+    .checklist-overlay-card {
+      display: grid;
+      gap: 16px;
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 16px;
+      padding: 16px;
+    }
+
+    .checklist-overlay-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .checklist-overlay-header input[type="text"] {
+      flex: 1 1 220px;
+      min-width: 0;
+    }
+
+    .checklist-overlay-actions {
+      display: flex;
+      gap: 8px;
+      align-items: center;
+    }
+
+    .checklist-overlay-sections {
+      display: grid;
+      gap: 14px;
+    }
+
+    .checklist-overlay-section {
+      background: rgba(16, 18, 20, 0.4);
+      border: 1px solid rgba(255, 255, 255, 0.06);
+      border-radius: 14px;
+      padding: 14px;
+      display: grid;
+      gap: 10px;
+    }
+
+    .checklist-overlay-section .text-field,
+    .checklist-overlay-section .text-area {
+      background: rgba(0, 0, 0, 0.35);
+      border-color: rgba(255, 255, 255, 0.04);
+    }
+
+    .checklist-overlay-items {
+      display: grid;
+      gap: 8px;
+    }
+
+    .checklist-overlay-item {
+      display: grid;
+      grid-template-columns: auto 1fr;
+      gap: 10px;
+      align-items: center;
+      background: rgba(255, 255, 255, 0.02);
+      border-radius: 10px;
+      padding: 10px;
+    }
+
+    .checklist-overlay-item input[type="checkbox"] {
+      width: 20px;
+      height: 20px;
+      accent-color: var(--accent);
+    }
+
+    .checklist-overlay-item input[type="text"] {
+      width: 100%;
+      background: transparent;
+      border: none;
+      color: var(--text);
+      font-size: 0.9rem;
+      padding: 4px 0;
+    }
+
+    .checklist-overlay-item input[type="text"]:focus {
+      outline: none;
+      box-shadow: inset 0 -1px 0 var(--accent);
+    }
+
     .practice-engine {
       display: grid;
       gap: 18px;
@@ -3107,13 +3190,15 @@ window.initialData = to_js({
       return fallback;
     }
 
-    function persistPracticeState() {
+    function persistPracticeState(options = {}) {
       try {
         localStorage.setItem(PRACTICE_STORAGE_KEY, JSON.stringify(practiceState));
       } catch (error) {
         console.warn('Unable to save practice data', error);
       }
-      renderChecklistTemplates();
+      if (!options.skipChecklistOverlay) {
+        renderChecklistTemplates();
+      }
     }
 
     function normalizeCurriculumReference(ref, entryId, index) {
@@ -3877,6 +3962,8 @@ window.initialData = to_js({
       titleField.className = 'text-field';
       titleField.value = checklist.title;
       titleField.placeholder = 'Checklist title';
+      titleField.dataset.checklistId = checklist.id;
+      titleField.dataset.role = 'checklist-title';
       titleField.addEventListener('input', (event) => {
         checklist.title = event.target.value;
         persistPracticeState();
@@ -3925,6 +4012,8 @@ window.initialData = to_js({
       titleField.className = 'text-field';
       titleField.value = section.title;
       titleField.placeholder = 'Section title';
+      titleField.dataset.sectionId = section.id;
+      titleField.dataset.role = 'section-title';
       titleField.addEventListener('input', (event) => {
         section.title = event.target.value;
         persistPracticeState();
@@ -3935,6 +4024,8 @@ window.initialData = to_js({
       descriptionField.className = 'text-area section-description';
       descriptionField.value = section.description;
       descriptionField.placeholder = 'Add context or teaching notes';
+      descriptionField.dataset.sectionId = section.id;
+      descriptionField.dataset.role = 'section-description';
       descriptionField.addEventListener('input', (event) => {
         section.description = event.target.value;
         persistPracticeState();
@@ -3994,6 +4085,8 @@ window.initialData = to_js({
       textInput.className = 'item-input';
       textInput.value = item.text;
       textInput.placeholder = 'Checklist step';
+      textInput.dataset.itemId = item.id;
+      textInput.dataset.role = 'item-text';
       textInput.addEventListener('input', (event) => {
         item.text = event.target.value;
         persistPracticeState();
@@ -5015,18 +5108,167 @@ window.initialData = to_js({
       const list = document.getElementById('checklist-list');
       if (!list) return;
       list.innerHTML = '';
-      (practiceState.checklists || []).forEach(checklist => {
+      const checklists = (practiceState && practiceState.checklists) || [];
+      if (!checklists.length) {
+        list.innerHTML = '<div class="empty-state">Add a checklist from the Practice layer to manage it here.</div>';
+        return;
+      }
+
+      checklists.forEach(checklist => {
         const card = document.createElement('article');
-        card.className = 'guideline-result';
-        const firstSection = checklist.sections[0];
-        const previewItems = firstSection ? firstSection.items.slice(0, 4) : [];
-        card.innerHTML = `
-          <h4 style="margin:0 0 6px;">${checklist.title}</h4>
-          ${firstSection ? `<p style="margin:0 0 10px;color:var(--subtle);font-size:0.85rem;">${firstSection.title}</p>` : ''}
-          <ul>${previewItems.map(item => `<li>${item.text}</li>`).join('')}</ul>
-        `;
+        card.className = 'checklist-overlay-card';
+        card.dataset.checklistId = checklist.id;
+
+        const header = document.createElement('div');
+        header.className = 'checklist-overlay-header';
+
+        const titleField = document.createElement('input');
+        titleField.type = 'text';
+        titleField.className = 'text-field';
+        titleField.value = checklist.title;
+        titleField.placeholder = 'Checklist title';
+        titleField.addEventListener('input', () => {
+          checklist.title = titleField.value;
+          persistPracticeState({ skipChecklistOverlay: true });
+          const mainField = document.querySelector(`input[data-role="checklist-title"][data-checklist-id="${checklist.id}"]`);
+          if (mainField) {
+            mainField.value = checklist.title;
+          }
+          syncFocusTitle(checklist.id, checklist.title);
+        });
+
+        const actions = document.createElement('div');
+        actions.className = 'checklist-overlay-actions';
+
+        const resetButton = document.createElement('button');
+        resetButton.type = 'button';
+        resetButton.className = 'button secondary';
+        resetButton.textContent = 'Reset';
+        resetButton.addEventListener('click', () => {
+          checklist.sections.forEach(section => {
+            section.items.forEach(item => {
+              item.checked = false;
+              const overlayCheckbox = card.querySelector(`input[type="checkbox"][data-item-id="${item.id}"]`);
+              if (overlayCheckbox) {
+                overlayCheckbox.checked = false;
+              }
+              const mainCheckbox = document.querySelector(`.checklist-item input[type="checkbox"][data-item-id="${item.id}"]`);
+              if (mainCheckbox) {
+                mainCheckbox.checked = false;
+              }
+              syncFocusCheckbox(checklist.id, item.id, false);
+            });
+          });
+          persistPracticeState({ skipChecklistOverlay: true });
+        });
+
+        const focusButton = document.createElement('button');
+        focusButton.type = 'button';
+        focusButton.className = 'button';
+        focusButton.textContent = 'Focus mode';
+        focusButton.addEventListener('click', () => openFocusMode(checklist.id));
+
+        actions.appendChild(resetButton);
+        actions.appendChild(focusButton);
+
+        header.appendChild(titleField);
+        header.appendChild(actions);
+
+        const sectionsWrapper = document.createElement('div');
+        sectionsWrapper.className = 'checklist-overlay-sections';
+        (checklist.sections || []).forEach(section => {
+          sectionsWrapper.appendChild(buildChecklistOverlaySection(checklist, section));
+        });
+
+        card.appendChild(header);
+        card.appendChild(sectionsWrapper);
         list.appendChild(card);
       });
+    }
+
+    function buildChecklistOverlaySection(checklist, section) {
+      const sectionEl = document.createElement('article');
+      sectionEl.className = 'checklist-overlay-section';
+      sectionEl.dataset.sectionId = section.id;
+
+      const titleField = document.createElement('input');
+      titleField.type = 'text';
+      titleField.className = 'text-field';
+      titleField.value = section.title;
+      titleField.placeholder = 'Section title';
+      titleField.addEventListener('input', () => {
+        section.title = titleField.value;
+        persistPracticeState({ skipChecklistOverlay: true });
+        const mainField = document.querySelector(`input[data-role="section-title"][data-section-id="${section.id}"]`);
+        if (mainField) {
+          mainField.value = section.title;
+        }
+        syncFocusSectionTitle(checklist.id, section.id, section.title);
+      });
+
+      const descriptionField = document.createElement('textarea');
+      descriptionField.className = 'text-area';
+      descriptionField.value = section.description;
+      descriptionField.placeholder = 'Add context or teaching notes';
+      descriptionField.addEventListener('input', () => {
+        section.description = descriptionField.value;
+        persistPracticeState({ skipChecklistOverlay: true });
+        const mainField = document.querySelector(`textarea[data-role="section-description"][data-section-id="${section.id}"]`);
+        if (mainField) {
+          mainField.value = section.description;
+        }
+        syncFocusSectionDescription(checklist.id, section.id, section.description);
+      });
+
+      const itemsList = document.createElement('div');
+      itemsList.className = 'checklist-overlay-items';
+      (section.items || []).forEach(item => {
+        itemsList.appendChild(buildChecklistOverlayItem(checklist, item));
+      });
+
+      sectionEl.appendChild(titleField);
+      sectionEl.appendChild(descriptionField);
+      sectionEl.appendChild(itemsList);
+      return sectionEl;
+    }
+
+    function buildChecklistOverlayItem(checklist, item) {
+      const row = document.createElement('div');
+      row.className = 'checklist-overlay-item';
+      row.dataset.itemId = item.id;
+
+      const checkbox = document.createElement('input');
+      checkbox.type = 'checkbox';
+      checkbox.checked = item.checked;
+      checkbox.dataset.itemId = item.id;
+      checkbox.dataset.checklistId = checklist.id;
+      checkbox.addEventListener('change', () => {
+        item.checked = checkbox.checked;
+        persistPracticeState({ skipChecklistOverlay: true });
+        const mainCheckbox = document.querySelector(`.checklist-item input[type="checkbox"][data-item-id="${item.id}"]`);
+        if (mainCheckbox) {
+          mainCheckbox.checked = checkbox.checked;
+        }
+        syncFocusCheckbox(checklist.id, item.id, checkbox.checked);
+      });
+
+      const textField = document.createElement('input');
+      textField.type = 'text';
+      textField.value = item.text;
+      textField.placeholder = 'Checklist step';
+      textField.addEventListener('input', () => {
+        item.text = textField.value;
+        persistPracticeState({ skipChecklistOverlay: true });
+        const mainText = document.querySelector(`input[data-role="item-text"][data-item-id="${item.id}"]`);
+        if (mainText) {
+          mainText.value = item.text;
+        }
+        syncFocusItemText(checklist.id, item.id, item.text);
+      });
+
+      row.appendChild(checkbox);
+      row.appendChild(textField);
+      return row;
     }
 
     function renderCurriculum() {
