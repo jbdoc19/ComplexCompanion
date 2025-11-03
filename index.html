@@ -1950,7 +1950,6 @@ window.initialData = to_js({
     const CURRICULUM_STORAGE_KEY = 'cc-curriculum-layer';
 
     async function boot() {
-      await ensurePyodideReady();
       appData = window.initialData ?? { atlas: {}, practice: [], curriculum: [] };
       practiceState = loadPracticeState(appData.practice);
       appData.practice = practiceState;
@@ -1965,28 +1964,59 @@ window.initialData = to_js({
       renderChecklistTemplates();
       renderCurriculum();
       setupTemplateEditor();
+      initPyodideIfAvailable();
+    }
+
+    function initPyodideIfAvailable() {
+      const startPyodide = () => {
+        ensurePyodideReady().catch(error => {
+          console.error('Failed to initialize Pyodide; Python features will be disabled.', error);
+        });
+      };
+
+      if (typeof window.loadPyodide === 'function') {
+        startPyodide();
+        return;
+      }
+
+      const pyodideScript = document.querySelector('script[src*="pyodide"]');
+      if (!pyodideScript) {
+        console.warn('Pyodide script not found; skipping Python-powered helpers.');
+        return;
+      }
+
+      pyodideScript.addEventListener(
+        'load',
+        () => {
+          startPyodide();
+        },
+        { once: true },
+      );
+
+      pyodideScript.addEventListener(
+        'error',
+        () => {
+          console.warn('Pyodide script failed to load; Python-powered helpers will remain unavailable.');
+        },
+        { once: true },
+      );
     }
 
     async function ensurePyodideReady() {
       if (window.pyodideReady) return window.pyodideReady;
-      window.pyodideReady = new Promise(resolve => {
-        if (window.pyodide && window.loadPyodide) {
-          window.loadPyodide().then(() => {
-            window.pyodide.runPython(document.getElementById('py-data').textContent);
-            resolve();
-          });
-        } else {
-          const checkInterval = setInterval(() => {
-            if (window.loadPyodide) {
-              clearInterval(checkInterval);
-              window.loadPyodide().then(() => {
-                window.pyodide.runPython(document.getElementById('py-data').textContent);
-                resolve();
-              });
-            }
-          }, 20);
-        }
-      });
+      if (typeof window.loadPyodide !== 'function') {
+        return Promise.reject(new Error('Pyodide loader is not available.'));
+      }
+      const pySnippet = document.getElementById('py-data');
+      window.pyodideReady = window
+        .loadPyodide()
+        .then(pyodide => {
+          window.pyodide = pyodide;
+          if (pySnippet) {
+            pyodide.runPython(pySnippet.textContent);
+          }
+          return pyodide;
+        });
       return window.pyodideReady;
     }
 
