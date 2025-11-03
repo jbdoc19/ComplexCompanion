@@ -4,18 +4,1560 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Complex Companion</title>
-  <link rel="stylesheet" href="style/main.css" />
+  <style>
+    :root {
+      color-scheme: dark;
+      --bg: #101214;
+      --surface: #14181c;
+      --accent: #1f6f78;
+      --accent-soft: rgba(31, 111, 120, 0.25);
+      --text: #f2f5f7;
+      --subtle: #9aa5ab;
+      --muted: #313a42;
+      --radius: 14px;
+      --transition: 0.28s ease;
+      font-family: "Inter", "Segoe UI", sans-serif;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      font-weight: 400;
+      letter-spacing: 0.01em;
+    }
+
+    h1,
+    h2,
+    h3,
+    h4 {
+      font-weight: 600;
+      margin: 0;
+    }
+
+    a {
+      color: var(--accent);
+    }
+
+    .app-shell {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      max-width: 1220px;
+      margin: 0 auto;
+      width: 100%;
+      padding: 24px clamp(16px, 3vw, 42px) 96px;
+      gap: 24px;
+    }
+
+    header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      position: sticky;
+      top: 0;
+      background: linear-gradient(180deg, rgba(16, 18, 20, 0.96), rgba(16, 18, 20, 0));
+      backdrop-filter: blur(6px);
+      z-index: 2;
+      padding: 8px 0 12px;
+    }
+
+    .logo-title {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .logo {
+      width: 36px;
+      height: 36px;
+      border-radius: 12px;
+      background: radial-gradient(circle at 30% 30%, rgba(255, 255, 255, 0.9), rgba(31, 111, 120, 0.25));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      letter-spacing: 0.02em;
+      color: var(--bg);
+    }
+
+    .tab-bar {
+      display: inline-flex;
+      background: var(--surface);
+      padding: 6px;
+      border-radius: 100px;
+      gap: 6px;
+      box-shadow: 0 12px 32px rgba(0, 0, 0, 0.35);
+    }
+
+    .tab-button {
+      border: none;
+      padding: 8px 20px;
+      border-radius: 100px;
+      background: transparent;
+      color: var(--subtle);
+      font-size: 0.95rem;
+      cursor: pointer;
+      transition: background var(--transition), color var(--transition), transform var(--transition);
+    }
+
+    .tab-button.active {
+      background: var(--accent);
+      color: var(--text);
+      transform: translateY(-1px);
+      box-shadow: 0 6px 18px rgba(31, 111, 120, 0.45);
+    }
+
+    main {
+      display: grid;
+      gap: 24px;
+    }
+
+    .atlas-search {
+      background: var(--surface);
+      padding: 18px clamp(16px, 2.5vw, 28px);
+      border-radius: var(--radius);
+      display: grid;
+      gap: 16px;
+      box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.02);
+    }
+
+    .atlas-search h2 {
+      font-size: 1.25rem;
+      font-weight: 600;
+      color: var(--text);
+    }
+
+    .atlas-search .inputs {
+      display: grid;
+      gap: 12px;
+    }
+
+    .text-field,
+    select {
+      width: 100%;
+      border-radius: 12px;
+      background: var(--muted);
+      border: 1px solid transparent;
+      padding: 12px 16px;
+      color: var(--text);
+      font-size: 0.98rem;
+      transition: border var(--transition), box-shadow var(--transition);
+    }
+
+    .text-field:focus,
+    select:focus {
+      outline: none;
+      border-color: var(--accent);
+      box-shadow: 0 0 0 3px var(--accent-soft);
+    }
+
+    .section-card {
+      background: var(--surface);
+      border-radius: var(--radius);
+      padding: clamp(16px, 2.5vw, 24px);
+      display: grid;
+      gap: 18px;
+      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.28);
+    }
+
+    .section-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .section-header h3 {
+      font-size: 1.15rem;
+    }
+
+    .card-grid {
+      display: grid;
+      gap: 16px;
+    }
+
+    .collapsible-card {
+      border-radius: var(--radius);
+      background: rgba(255, 255, 255, 0.02);
+      border: 1px solid rgba(255, 255, 255, 0.05);
+      transition: border var(--transition), transform var(--transition), background var(--transition);
+    }
+
+    .collapsible-card:hover {
+      border-color: rgba(31, 111, 120, 0.4);
+      transform: translateY(-2px);
+      background: rgba(31, 111, 120, 0.08);
+    }
+
+    details {
+      border-radius: inherit;
+      overflow: hidden;
+    }
+
+    details summary {
+      list-style: none;
+      cursor: pointer;
+      padding: 18px 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      color: var(--text);
+    }
+
+    details summary::-webkit-details-marker {
+      display: none;
+    }
+
+    .summary-title {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .summary-title span {
+      color: var(--subtle);
+      font-size: 0.85rem;
+    }
+
+    .agency-body,
+    .guideline-body,
+    .calculator-body {
+      padding: 0 20px 20px;
+      display: grid;
+      gap: 16px;
+    }
+
+    .agency-entry {
+      background: rgba(0, 0, 0, 0.35);
+      border: 1px solid rgba(255, 255, 255, 0.05);
+      border-radius: 12px;
+      padding: 14px;
+      display: grid;
+      gap: 8px;
+    }
+
+    .agency-entry header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: relative;
+    }
+
+    .agency-entry header h4 {
+      font-size: 1rem;
+      color: var(--text);
+    }
+
+    .tag-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+
+    .tag {
+      padding: 4px 10px;
+      border-radius: 999px;
+      background: rgba(31, 111, 120, 0.18);
+      color: var(--accent);
+      font-size: 0.75rem;
+      letter-spacing: 0.03em;
+    }
+
+    .meta {
+      font-size: 0.88rem;
+      color: var(--subtle);
+      display: grid;
+      gap: 2px;
+    }
+
+    .notes-field {
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 10px;
+      padding: 10px 12px;
+      color: var(--text);
+      width: 100%;
+      min-height: 64px;
+      resize: vertical;
+      font-size: 0.9rem;
+      font-family: "Fira Code", monospace;
+    }
+
+    .calculator-form {
+      display: grid;
+      gap: 10px;
+    }
+
+    .calculator-result {
+      background: rgba(31, 111, 120, 0.15);
+      border-radius: 10px;
+      padding: 10px 14px;
+      font-size: 0.9rem;
+    }
+
+    .action-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      justify-content: flex-end;
+    }
+
+    .button {
+      border: none;
+      border-radius: 999px;
+      padding: 10px 18px;
+      background: var(--accent);
+      color: var(--text);
+      font-size: 0.9rem;
+      cursor: pointer;
+      transition: transform var(--transition), box-shadow var(--transition), filter var(--transition);
+    }
+
+    .button.secondary {
+      background: rgba(255, 255, 255, 0.08);
+      color: var(--subtle);
+    }
+
+    .button:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 8px 22px rgba(31, 111, 120, 0.35);
+    }
+
+    .guideline-result {
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid rgba(255, 255, 255, 0.05);
+      border-radius: 12px;
+      padding: 16px;
+      display: grid;
+      gap: 10px;
+    }
+
+    .guideline-result ul {
+      margin: 0;
+      padding-left: 18px;
+      color: var(--subtle);
+    }
+
+    .guideline-links {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .guideline-links a {
+      color: var(--accent);
+      font-size: 0.85rem;
+    }
+
+    .side-panel {
+      position: fixed;
+      right: 24px;
+      top: 24px;
+      bottom: 96px;
+      width: min(360px, 90vw);
+      background: rgba(16, 18, 20, 0.96);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 18px;
+      box-shadow: 0 28px 60px rgba(0, 0, 0, 0.45);
+      padding: 22px;
+      display: grid;
+      gap: 16px;
+      transform: translateX(120%);
+      transition: transform var(--transition);
+      z-index: 6;
+      backdrop-filter: blur(12px);
+    }
+
+    .side-panel.open {
+      transform: translateX(0%);
+    }
+
+    .side-panel header {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .side-panel ul {
+      margin: 0;
+      padding-left: 20px;
+      color: var(--subtle);
+      display: grid;
+      gap: 6px;
+    }
+
+    .command-bar {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: rgba(31, 111, 120, 0.9);
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+      padding: 10px clamp(16px, 4vw, 48px);
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 14px;
+      z-index: 5;
+      backdrop-filter: blur(8px);
+    }
+
+    .command-button {
+      border: none;
+      border-radius: 12px;
+      background: rgba(0, 0, 0, 0.25);
+      color: var(--text);
+      padding: 12px 16px;
+      font-size: 0.92rem;
+      letter-spacing: 0.02em;
+      cursor: pointer;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      align-items: flex-start;
+      transition: background var(--transition), transform var(--transition);
+    }
+
+    .command-button span {
+      font-size: 0.72rem;
+      color: rgba(255, 255, 255, 0.72);
+    }
+
+    .command-button:hover {
+      background: rgba(0, 0, 0, 0.35);
+      transform: translateY(-2px);
+    }
+
+    .notes-drawer {
+      position: fixed;
+      bottom: 96px;
+      right: 24px;
+      width: min(420px, 92vw);
+      background: rgba(16, 18, 20, 0.96);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 18px;
+      box-shadow: 0 32px 64px rgba(0, 0, 0, 0.45);
+      padding: 22px;
+      display: grid;
+      gap: 14px;
+      transform: translateY(140%);
+      transition: transform var(--transition);
+      z-index: 7;
+      backdrop-filter: blur(12px);
+    }
+
+    .notes-drawer.open {
+      transform: translateY(0%);
+    }
+
+    .notes-drawer textarea {
+      width: 100%;
+      min-height: 180px;
+      border-radius: 12px;
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      color: var(--text);
+      font-family: "Fira Code", monospace;
+      padding: 12px;
+      font-size: 0.92rem;
+    }
+
+    .overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.6);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 8;
+      padding: 24px;
+    }
+
+    .overlay.active {
+      display: flex;
+    }
+
+    .overlay-card {
+      background: rgba(16, 18, 20, 0.95);
+      border-radius: 18px;
+      padding: clamp(20px, 3vw, 32px);
+      width: min(680px, 96vw);
+      display: grid;
+      gap: 16px;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+    }
+
+    .practice-board,
+    .curriculum-board {
+      display: grid;
+      gap: 16px;
+    }
+
+    .template-card {
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid rgba(255, 255, 255, 0.05);
+      border-radius: 12px;
+      padding: 16px;
+      display: grid;
+      gap: 10px;
+    }
+
+    .template-card ul {
+      margin: 0;
+      padding-left: 20px;
+      color: var(--subtle);
+      display: grid;
+      gap: 6px;
+    }
+
+    .empty-state {
+      text-align: center;
+      padding: 48px 24px;
+      color: var(--subtle);
+      border: 1px dashed rgba(255, 255, 255, 0.12);
+      border-radius: var(--radius);
+      background: rgba(255, 255, 255, 0.02);
+    }
+
+    @media (max-width: 768px) {
+      header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 12px;
+      }
+      .command-bar {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        padding-bottom: 18px;
+      }
+      .app-shell {
+        padding-bottom: 112px;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *,
+      *::before,
+      *::after {
+        transition: none !important;
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+      }
+    }
+  </style>
+  <script src="https://cdn.jsdelivr.net/pyodide/v0.24.1/full/pyodide.js" defer></script>
 </head>
 <body>
-  <!-- Top Tabs -->
-  <div id="top-nav"></div>
+  <div class="app-shell">
+    <header>
+      <div class="logo-title">
+        <div class="logo">CC</div>
+        <div>
+          <h1>Complex Companion</h1>
+          <p style="margin:0;color:var(--subtle);font-size:0.85rem;">Clinician's atlas, practice cockpit, and curriculum tracker.</p>
+        </div>
+      </div>
+      <nav class="tab-bar" role="tablist" aria-label="Primary">
+        <button class="tab-button active" data-tab="atlas" role="tab" aria-selected="true">Atlas</button>
+        <button class="tab-button" data-tab="practice" role="tab" aria-selected="false">Practice</button>
+        <button class="tab-button" data-tab="curriculum" role="tab" aria-selected="false">Curriculum</button>
+      </nav>
+    </header>
 
-  <!-- Main Content Area -->
-  <div id="main-view"></div>
+    <main id="tab-panels"></main>
+  </div>
 
-  <!-- Bottom Command Bar -->
-  <div id="command-bar"></div>
+  <div class="command-bar" role="toolbar" aria-label="Command Bar">
+    <button class="command-button" data-command="home">
+      Home
+      <span>Return to workspace overview</span>
+    </button>
+    <button class="command-button" data-command="search">
+      Search
+      <span>Query stored knowledge</span>
+    </button>
+    <button class="command-button" data-command="checklist">
+      Checklist
+      <span>Templates on demand</span>
+    </button>
+    <button class="command-button" data-command="notes">
+      Notes
+      <span>Save teaching points</span>
+    </button>
+  </div>
 
-  <script src="js/main.js"></script>
+  <section class="side-panel" id="advisor-panel" aria-hidden="true">
+    <header>
+      <h2 id="advisor-title">Referral Advisor</h2>
+      <p id="advisor-summary" style="margin:0;color:var(--subtle);"></p>
+    </header>
+    <div>
+      <h3 style="font-size:0.95rem;margin-bottom:6px;">Referral Criteria</h3>
+      <ul id="advisor-list"></ul>
+    </div>
+    <textarea id="advisor-clipboard" class="notes-field" aria-label="Referral Summary" readonly></textarea>
+    <div class="action-row">
+      <button class="button secondary" id="advisor-close">Dismiss</button>
+      <button class="button" id="advisor-copy">Refer Now</button>
+    </div>
+  </section>
+
+  <section class="notes-drawer" id="notes-drawer" aria-hidden="true">
+    <div>
+      <h2 style="margin-bottom:4px;">Notes</h2>
+      <p style="margin:0;color:var(--subtle);font-size:0.85rem;">Markdown-friendly scratchpad synced locally.</p>
+    </div>
+    <textarea id="notes-text" placeholder="Add teaching pearls, quick formulas, or updates..."></textarea>
+    <div class="action-row">
+      <button class="button secondary" id="notes-clear">Clear</button>
+      <button class="button" id="notes-save">Save</button>
+    </div>
+  </section>
+
+  <div class="overlay" id="search-overlay" aria-hidden="true">
+    <div class="overlay-card">
+      <div class="section-header">
+        <h2>Natural Language Search</h2>
+        <button class="button secondary" id="close-search">Close</button>
+      </div>
+      <input type="search" id="global-search" class="text-field" placeholder="Find knee height formula, hospice eligibility..." />
+      <div id="global-search-results" class="card-grid"></div>
+    </div>
+  </div>
+
+  <div class="overlay" id="checklist-overlay" aria-hidden="true">
+    <div class="overlay-card">
+      <div class="section-header">
+        <h2>Checklist Templates</h2>
+        <button class="button secondary" id="close-checklist">Close</button>
+      </div>
+      <div id="checklist-list" class="card-grid"></div>
+    </div>
+  </div>
+
+  <script type="text/python" id="py-data">
+from js import window
+from pyodide.ffi import to_js
+
+atlas_data = {
+    "agencies": [
+        {
+            "category": "Home Health",
+            "entries": [
+                {
+                    "name": "Lakeside Home Health",
+                    "service": "Skilled nursing, PT/OT",
+                    "contact": "(555) 232-9910",
+                    "notes": "Reliable wound care team",
+                    "tags": ["trusted", "state-funded"]
+                },
+                {
+                    "name": "Compass Transitional Care",
+                    "service": "RN assessments, speech therapy",
+                    "contact": "(555) 882-1104",
+                    "notes": "Great with ALS care plans",
+                    "tags": ["trusted"]
+                }
+            ]
+        },
+        {
+            "category": "Therapies",
+            "entries": [
+                {
+                    "name": "Align Pediatric Therapy",
+                    "service": "PT/OT, sensory integration",
+                    "contact": "(555) 301-7760",
+                    "notes": "OT evals under 10 days",
+                    "tags": ["pediatric", "private-pay"]
+                },
+                {
+                    "name": "Urban Speech Collective",
+                    "service": "AAC evaluations, feeding",
+                    "contact": "(555) 902-4411",
+                    "notes": "Experienced with trach kiddos",
+                    "tags": ["trusted", "aac"]
+                }
+            ]
+        },
+        {
+            "category": "DME",
+            "entries": [
+                {
+                    "name": "Momentum Mobility",
+                    "service": "Wheelchairs, gait trainers",
+                    "contact": "(555) 415-2290",
+                    "notes": "Loaner program available",
+                    "tags": ["trusted", "loaner"]
+                }
+            ]
+        },
+        {
+            "category": "Transport",
+            "entries": [
+                {
+                    "name": "CareRide Accessible",
+                    "service": "Non-emergent bariatric transport",
+                    "contact": "dispatch@careride.org",
+                    "notes": "Schedule 48h in advance",
+                    "tags": ["state-funded"]
+                }
+            ]
+        }
+    ],
+    "behavioral_advisor": {
+        "title": "Behavioral Resources",
+        "summary": "Quick triage to behavioral supports.",
+        "criteria": [
+            "Caregiver reports of escalating aggression or elopement",
+            "Two or more ED visits for behavior within 6 months",
+            "Existing school-based plan inadequate",
+            "Team consensus for Applied Behavior Analysis",
+        ],
+        "clipboard": "Behavioral referral: family reports escalation with two ED visits in 6 months. Request ABA intake and care coordination."
+    },
+    "adaptive_advisor": {
+        "title": "Adaptive Device Advisor",
+        "summary": "Match AAC and adaptive tech quickly.",
+        "criteria": [
+            "Minimal verbal output < 20 functional words",
+            "Demonstrated ability to make binary choices",
+            "Stable positioning with support",
+            "Care team ready for device trials"
+        ],
+        "clipboard": "AAC referral: child uses <20 functional words, demonstrates choice making, family prepared for device trials. Request comprehensive AAC eval."
+    },
+    "guidelines": [
+        {
+            "title": "AAC Device Eligibility",
+            "keywords": ["aac", "device", "communication", "criteria"],
+            "summary": [
+                "Receptive language age 12 months or higher",
+                "Demonstrates intentional communication attempts",
+                "Documented impact on participation"
+            ],
+            "links": [
+                {"label": "Practice Brief", "url": "https://example.org/aac-brief"},
+                {"label": "Funding Checklist", "url": "https://example.org/aac-funding"}
+            ],
+            "template": "AAC eligibility summary: receptive language >12mo, intentional communication present, participation limited. Recommend CPT 92607 eval and trial."
+        },
+        {
+            "title": "Pediatric Hospice Criteria",
+            "keywords": ["hospice", "end-of-life", "eligibility"],
+            "summary": [
+                "Two physicians certify life expectancy < 6 months",
+                "Family elects comfort-focused plan",
+                "Interdisciplinary team engaged"
+            ],
+            "links": [
+                {"label": "NHPCO Guidance", "url": "https://example.org/hospice"}
+            ],
+            "template": "Pediatric hospice consult: prognosis <6 months, family choosing comfort focus, IDT mobilized."
+        }
+    ]
+}
+
+practice_templates = [
+    {
+        "title": "Clinic Morning Huddle",
+        "items": [
+            "Overnight events & new admissions",
+            "Lab review & pending imaging",
+            "Discharge blocks & equipment needs",
+            "Education focus for the day"
+        ]
+    },
+    {
+        "title": "Pre-Visit Planning",
+        "items": [
+            "Update med list & allergies",
+            "Check authorizations expiring <30d",
+            "Prep adaptive equipment check",
+            "Flag outstanding referrals"
+        ]
+    }
+]
+
+curriculum_tracks = [
+    {
+        "title": "New Clinician Onboarding",
+        "milestones": [
+            "Week 1: Orientation & safety walkthrough",
+            "Week 2: Atlas navigation & tagging",
+            "Week 3: Practice templates in workflow",
+            "Week 4: Co-lead family conference"
+        ]
+    },
+    {
+        "title": "Advanced Care Planning",
+        "milestones": [
+            "Refresh POLST vs POST regulations",
+            "Conduct two supervised goals-of-care visits",
+            "Build custom hospice checklist",
+            "Teach session to peers"
+        ]
+    }
+]
+
+window.initialData = to_js({
+    "atlas": atlas_data,
+    "practice": practice_templates,
+    "curriculum": curriculum_tracks
+}, depth=4)
+  </script>
+
+  <script>
+    const tabPanels = document.getElementById('tab-panels');
+    const tabButtons = document.querySelectorAll('.tab-button');
+    const sidePanel = document.getElementById('advisor-panel');
+    const notesDrawer = document.getElementById('notes-drawer');
+    const notesField = document.getElementById('notes-text');
+    const globalSearchOverlay = document.getElementById('search-overlay');
+    const checklistOverlay = document.getElementById('checklist-overlay');
+    const commandButtons = document.querySelectorAll('.command-button');
+
+    let appData = null;
+
+    async function boot() {
+      await ensurePyodideReady();
+      appData = window.initialData ?? { atlas: {}, practice: [], curriculum: [] };
+      renderTab('atlas');
+      setupTabs();
+      setupCommandBar();
+      setupNotes();
+      renderChecklistTemplates();
+      renderCurriculum();
+    }
+
+    async function ensurePyodideReady() {
+      if (window.pyodideReady) return window.pyodideReady;
+      window.pyodideReady = new Promise(resolve => {
+        if (window.pyodide && window.loadPyodide) {
+          window.loadPyodide().then(() => {
+            window.pyodide.runPython(document.getElementById('py-data').textContent);
+            resolve();
+          });
+        } else {
+          const checkInterval = setInterval(() => {
+            if (window.loadPyodide) {
+              clearInterval(checkInterval);
+              window.loadPyodide().then(() => {
+                window.pyodide.runPython(document.getElementById('py-data').textContent);
+                resolve();
+              });
+            }
+          }, 20);
+        }
+      });
+      return window.pyodideReady;
+    }
+
+    function setupTabs() {
+      tabButtons.forEach(btn => {
+        btn.addEventListener('click', () => {
+          if (btn.classList.contains('active')) return;
+          tabButtons.forEach(b => {
+            b.classList.toggle('active', b === btn);
+            b.setAttribute('aria-selected', b === btn);
+          });
+          renderTab(btn.dataset.tab);
+        });
+      });
+    }
+
+    function renderTab(name) {
+      tabPanels.innerHTML = '';
+      switch (name) {
+        case 'atlas':
+          tabPanels.appendChild(renderAtlasLayer(appData.atlas));
+          break;
+        case 'practice':
+          tabPanels.appendChild(renderPracticeLayer(appData.practice));
+          break;
+        case 'curriculum':
+          tabPanels.appendChild(renderCurriculumLayer(appData.curriculum));
+          break;
+        default:
+          tabPanels.innerHTML = '<div class="empty-state">No content available.</div>';
+      }
+    }
+
+    function renderAtlasLayer(atlas) {
+      const container = document.createElement('section');
+      container.className = 'atlas-layer';
+      container.style.display = 'grid';
+      container.style.gap = '24px';
+
+      container.appendChild(buildAtlasSearch(atlas));
+      container.appendChild(buildAgenciesSection(atlas.agencies || []));
+      container.appendChild(buildQuickTools());
+      container.appendChild(buildGuidelineFinder(atlas.guidelines || []));
+
+      return container;
+    }
+
+    function buildAtlasSearch(atlas) {
+      const wrapper = document.createElement('section');
+      wrapper.className = 'atlas-search';
+
+      const header = document.createElement('div');
+      header.innerHTML = `<h2>Ask Companion…</h2><p style="margin:0;color:var(--subtle);font-size:0.85rem;">Search across agencies, quick tools, and guidelines instantly.</p>`;
+
+      const inputs = document.createElement('div');
+      inputs.className = 'inputs';
+
+      const search = document.createElement('input');
+      search.type = 'search';
+      search.placeholder = 'Type "AAC device criteria" or "Caloric targets"';
+      search.className = 'text-field';
+      search.setAttribute('aria-label', 'Search Atlas');
+
+      const tagSelect = document.createElement('select');
+      tagSelect.innerHTML = '<option value="">Filter by tag</option>';
+      const tags = new Set();
+      (atlas.agencies || []).forEach(group => {
+        group.entries.forEach(entry => entry.tags.forEach(tag => tags.add(tag)));
+      });
+      [...tags].sort().forEach(tag => {
+        const opt = document.createElement('option');
+        opt.value = tag;
+        opt.textContent = tag;
+        tagSelect.appendChild(opt);
+      });
+
+      search.addEventListener('input', () => filterAtlas(search.value, tagSelect.value));
+      tagSelect.addEventListener('change', () => filterAtlas(search.value, tagSelect.value));
+
+      inputs.appendChild(search);
+      inputs.appendChild(tagSelect);
+
+      wrapper.appendChild(header);
+      wrapper.appendChild(inputs);
+
+      return wrapper;
+    }
+
+    function buildAgenciesSection(groups) {
+      const section = document.createElement('section');
+      section.className = 'section-card';
+      section.dataset.section = 'agencies';
+
+      const header = document.createElement('div');
+      header.className = 'section-header';
+      header.innerHTML = '<h3>Agencies & Services</h3><span style="color:var(--subtle);font-size:0.85rem;">Tag, filter, and edit your trusted network.</span>';
+
+      const cards = document.createElement('div');
+      cards.className = 'card-grid';
+
+      groups.forEach(group => {
+        const card = document.createElement('div');
+        card.className = 'collapsible-card';
+        card.dataset.tags = (group.entries.flatMap(entry => entry.tags)).join('|');
+        const detailsEl = document.createElement('details');
+        detailsEl.open = false;
+
+        const summary = document.createElement('summary');
+        summary.innerHTML = `<div class="summary-title"><strong>${group.category}</strong><span>${group.entries.length} resources</span></div><svg width="18" height="18" viewBox="0 0 20 20" fill="none"><path d="M6 8l4 4 4-4" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>`;
+
+        const body = document.createElement('div');
+        body.className = 'agency-body';
+
+        group.entries.forEach(entry => {
+          const entryEl = document.createElement('article');
+          entryEl.className = 'agency-entry';
+          entryEl.dataset.tags = entry.tags.join('|');
+          entryEl.dataset.name = entry.name.toLowerCase();
+          entryEl.dataset.service = entry.service.toLowerCase();
+
+          entryEl.innerHTML = `
+            <header>
+              <h4>${entry.name}</h4>
+              <div class="tag-list">${entry.tags.map(tag => `<span class="tag">${tag}</span>`).join('')}</div>
+            </header>
+            <div class="meta">
+              <span><strong>Service:</strong> ${entry.service}</span>
+              <span><strong>Contact:</strong> ${entry.contact}</span>
+            </div>
+            <label style="font-size:0.78rem;color:var(--subtle);">Notes</label>
+            <textarea class="notes-field" data-key="${encodeURIComponent(entry.name)}">${loadNote(entry.name) || entry.notes}</textarea>
+          `;
+
+          entryEl.querySelector('textarea').addEventListener('input', (event) => {
+            saveNote(entry.name, event.target.value);
+          });
+
+          body.appendChild(entryEl);
+        });
+
+        detailsEl.appendChild(summary);
+        detailsEl.appendChild(body);
+        card.appendChild(detailsEl);
+        cards.appendChild(card);
+      });
+
+      const advisorsRow = document.createElement('div');
+      advisorsRow.style.display = 'grid';
+      advisorsRow.style.gridTemplateColumns = 'repeat(auto-fit, minmax(260px, 1fr))';
+      advisorsRow.style.gap = '16px';
+
+      advisorsRow.appendChild(buildAdvisorCard('Behavioral Resources', 'behavioral'));
+      advisorsRow.appendChild(buildAdvisorCard('Adaptive Device Advisor', 'adaptive'));
+
+      section.appendChild(header);
+      section.appendChild(cards);
+      section.appendChild(advisorsRow);
+
+      return section;
+    }
+
+    function buildAdvisorCard(title, type) {
+      const card = document.createElement('button');
+      card.className = 'collapsible-card';
+      card.style.padding = '20px';
+      card.style.textAlign = 'left';
+      card.style.cursor = 'pointer';
+      card.style.border = '1px solid rgba(31, 111, 120, 0.35)';
+      card.innerHTML = `<strong>${title}</strong><p style="margin:8px 0 0;color:var(--subtle);font-size:0.88rem;">Launch referral-ready checklist.</p>`;
+      card.addEventListener('click', () => openAdvisor(type));
+      return card;
+    }
+
+    function buildQuickTools() {
+      const section = document.createElement('section');
+      section.className = 'section-card';
+      section.dataset.section = 'tools';
+      section.innerHTML = '<div class="section-header"><h3>Clinical Quick Tools</h3><span style="color:var(--subtle);font-size:0.85rem;">Calculators without the clutter.</span></div>';
+
+      const tools = [
+        {
+          title: 'Knee Height to Stature',
+          description: 'Estimate adult height in cm.',
+          form: buildKneeHeightForm
+        },
+        {
+          title: 'Caloric Target (kcal/day)',
+          description: 'Weight-based caloric range.',
+          form: buildCaloricForm
+        },
+        {
+          title: 'BMI-for-Age Quick Check',
+          description: 'Percentile estimate using CDC proxy.',
+          form: buildBMIForm
+        },
+        {
+          title: 'Medication Interaction Check',
+          description: 'Sample knowledge base cross-check.',
+          form: buildInteractionForm
+        }
+      ];
+
+      const grid = document.createElement('div');
+      grid.className = 'card-grid';
+
+      tools.forEach(tool => {
+        const card = document.createElement('div');
+        card.className = 'collapsible-card';
+        const detailsEl = document.createElement('details');
+        const summary = document.createElement('summary');
+        summary.innerHTML = `<div class="summary-title"><strong>${tool.title}</strong><span>${tool.description}</span></div><svg width="18" height="18" viewBox="0 0 20 20" fill="none"><path d="M6 8l4 4 4-4" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>`;
+        const body = document.createElement('div');
+        body.className = 'calculator-body';
+        body.appendChild(tool.form());
+        detailsEl.appendChild(summary);
+        detailsEl.appendChild(body);
+        card.appendChild(detailsEl);
+        grid.appendChild(card);
+      });
+
+      section.appendChild(grid);
+      return section;
+    }
+
+    function buildGuidelineFinder(guidelines) {
+      const section = document.createElement('section');
+      section.className = 'section-card';
+      section.dataset.section = 'guidelines';
+
+      section.innerHTML = `
+        <div class="section-header">
+          <h3>Guideline Finder</h3>
+          <span style="color:var(--subtle);font-size:0.85rem;">Search stored references and summaries.</span>
+        </div>
+        <input type="search" class="text-field" placeholder="Search guidelines…" aria-label="Search Guidelines" />
+        <div class="card-grid" id="guideline-results"></div>
+      `;
+
+      const input = section.querySelector('input');
+      const results = section.querySelector('#guideline-results');
+
+      const renderResults = (term = '') => {
+        results.innerHTML = '';
+        const normalized = term.trim().toLowerCase();
+        const matches = guidelines.filter(item =>
+          !normalized ||
+          item.title.toLowerCase().includes(normalized) ||
+          item.keywords.some(key => key.includes(normalized))
+        );
+
+        if (!matches.length) {
+          results.innerHTML = '<div class="empty-state">No guideline matched that search.</div>';
+          return;
+        }
+
+        matches.forEach(item => {
+          const card = document.createElement('article');
+          card.className = 'guideline-result';
+          card.dataset.name = item.title.toLowerCase();
+          card.dataset.keywords = item.keywords.join('|');
+          card.innerHTML = `
+            <header style="display:flex;justify-content:space-between;align-items:center;gap:12px;">
+              <div>
+                <h4 style="margin:0 0 4px;">${item.title}</h4>
+                <div class="tag-list">${item.keywords.map(tag => `<span class="tag">${tag}</span>`).join('')}</div>
+              </div>
+              <button class="button secondary" data-template="${encodeURIComponent(item.template)}">Save as Template</button>
+            </header>
+            <div>
+              <strong>Eligibility summary</strong>
+              <ul>${item.summary.map(line => `<li>${line}</li>`).join('')}</ul>
+            </div>
+            <div class="guideline-links">
+              ${item.links.map(link => `<a href="${link.url}" target="_blank" rel="noopener">${link.label}</a>`).join('')}
+            </div>
+          `;
+
+          card.querySelector('button[data-template]').addEventListener('click', (event) => {
+            const template = decodeURIComponent(event.currentTarget.dataset.template);
+            saveTemplateToNotes(template);
+          });
+
+          results.appendChild(card);
+        });
+      };
+
+      renderResults();
+      input.addEventListener('input', event => renderResults(event.target.value));
+
+      return section;
+    }
+
+    function buildKneeHeightForm() {
+      const form = document.createElement('form');
+      form.className = 'calculator-form';
+      form.innerHTML = `
+        <label>Measurement (cm)
+          <input type="number" step="0.1" class="text-field" name="height" required>
+        </label>
+        <label>Age (years)
+          <input type="number" class="text-field" name="age" required>
+        </label>
+        <label>Sex
+          <select name="sex" class="text-field">
+            <option value="female">Female</option>
+            <option value="male">Male</option>
+          </select>
+        </label>
+        <div class="action-row">
+          <button class="button" type="submit">Estimate</button>
+        </div>
+        <div class="calculator-result" hidden></div>
+      `;
+      const result = form.querySelector('.calculator-result');
+      form.addEventListener('submit', event => {
+        event.preventDefault();
+        const data = new FormData(form);
+        const measurement = parseFloat(data.get('height'));
+        const age = parseFloat(data.get('age'));
+        const sex = data.get('sex');
+        const estimate = sex === 'male'
+          ? 64.19 + (2.02 * measurement) - (0.04 * age)
+          : 84.88 + (1.83 * measurement) - (0.24 * age);
+        result.hidden = false;
+        result.textContent = `Estimated stature: ${estimate.toFixed(1)} cm`;
+      });
+      return form;
+    }
+
+    function buildCaloricForm() {
+      const form = document.createElement('form');
+      form.className = 'calculator-form';
+      form.innerHTML = `
+        <label>Weight (kg)
+          <input type="number" step="0.1" class="text-field" name="weight" required>
+        </label>
+        <label>Stress Factor
+          <select name="factor" class="text-field">
+            <option value="25">Resting (1.0)</option>
+            <option value="30">Moderate (1.2)</option>
+            <option value="35">Critical (1.4)</option>
+          </select>
+        </label>
+        <div class="action-row">
+          <button class="button" type="submit">Calculate</button>
+        </div>
+        <div class="calculator-result" hidden></div>
+      `;
+      const result = form.querySelector('.calculator-result');
+      form.addEventListener('submit', event => {
+        event.preventDefault();
+        const data = new FormData(form);
+        const weight = parseFloat(data.get('weight'));
+        const factor = parseFloat(data.get('factor'));
+        const low = weight * (factor - 5);
+        const high = weight * factor;
+        result.hidden = false;
+        result.textContent = `Suggested range: ${Math.round(low)} – ${Math.round(high)} kcal/day`;
+      });
+      return form;
+    }
+
+    function buildBMIForm() {
+      const form = document.createElement('form');
+      form.className = 'calculator-form';
+      form.innerHTML = `
+        <label>Age (years)
+          <input type="number" class="text-field" name="age" required>
+        </label>
+        <label>Weight (kg)
+          <input type="number" step="0.1" class="text-field" name="weight" required>
+        </label>
+        <label>Height (cm)
+          <input type="number" step="0.1" class="text-field" name="height" required>
+        </label>
+        <div class="action-row">
+          <button class="button" type="submit">Check</button>
+        </div>
+        <div class="calculator-result" hidden></div>
+      `;
+      const result = form.querySelector('.calculator-result');
+      form.addEventListener('submit', event => {
+        event.preventDefault();
+        const data = new FormData(form);
+        const age = parseFloat(data.get('age'));
+        const weight = parseFloat(data.get('weight'));
+        const heightMeters = parseFloat(data.get('height')) / 100;
+        const bmi = weight / (heightMeters ** 2);
+        const percentile = estimateBMIPercentile(bmi, age);
+        result.hidden = false;
+        result.textContent = `BMI: ${bmi.toFixed(1)} kg/m² (approx. ${percentile} percentile)`;
+      });
+      return form;
+    }
+
+    function buildInteractionForm() {
+      const form = document.createElement('form');
+      form.className = 'calculator-form';
+      form.innerHTML = `
+        <label>Medication A
+          <input type="text" class="text-field" name="a" placeholder="e.g., sertraline" required>
+        </label>
+        <label>Medication B
+          <input type="text" class="text-field" name="b" placeholder="e.g., linezolid" required>
+        </label>
+        <div class="action-row">
+          <button class="button" type="submit">Check</button>
+        </div>
+        <div class="calculator-result" hidden></div>
+      `;
+      const result = form.querySelector('.calculator-result');
+      form.addEventListener('submit', event => {
+        event.preventDefault();
+        const data = new FormData(form);
+        const a = data.get('a').trim().toLowerCase();
+        const b = data.get('b').trim().toLowerCase();
+        result.hidden = false;
+        result.textContent = lookupInteraction(a, b);
+      });
+      return form;
+    }
+
+    function estimateBMIPercentile(bmi, age) {
+      if (age < 5) return '85th';
+      if (age < 12) return bmi < 18 ? '50th' : bmi < 21 ? '85th' : '95th';
+      return bmi < 19 ? '50th' : bmi < 25 ? '75th' : '95th';
+    }
+
+    function lookupInteraction(a, b) {
+      const interactions = {
+        'sertraline|linezolid': 'High risk: serotonin syndrome potential. Hold SSRI during linezolid therapy.',
+        'clonidine|guanfacine': 'Avoid dual alpha-agonists: additive hypotension. Consider tapering one agent.',
+        'warfarin|amoxicillin': 'Monitor INR: antibiotics may increase INR. Recheck within 3 days.'
+      };
+      const key = `${a}|${b}`;
+      const reverseKey = `${b}|${a}`;
+      return interactions[key] || interactions[reverseKey] || 'No interaction found in sample set. Verify with full database.';
+    }
+
+    function filterAtlas(query, tag) {
+      const normalized = query.trim().toLowerCase();
+      const sections = tabPanels.querySelectorAll('[data-section="agencies"] .agency-entry');
+      sections.forEach(entry => {
+        const matchesText = !normalized || entry.dataset.name.includes(normalized) || entry.dataset.service.includes(normalized);
+        const tags = entry.dataset.tags.split('|');
+        const matchesTag = !tag || tags.includes(tag);
+        entry.style.display = matchesText && matchesTag ? 'grid' : 'none';
+      });
+
+      const cards = tabPanels.querySelectorAll('[data-section="agencies"] .collapsible-card');
+      cards.forEach(card => {
+        const visible = card.querySelectorAll('.agency-entry').length && [...card.querySelectorAll('.agency-entry')].some(entry => entry.style.display !== 'none');
+        card.style.display = visible ? 'block' : 'none';
+      });
+    }
+
+    function openAdvisor(type) {
+      const { behavioral_advisor, adaptive_advisor } = appData.atlas;
+      const advisor = type === 'behavioral' ? behavioral_advisor : adaptive_advisor;
+      if (!advisor) return;
+      document.getElementById('advisor-title').textContent = advisor.title;
+      document.getElementById('advisor-summary').textContent = advisor.summary;
+      const list = document.getElementById('advisor-list');
+      list.innerHTML = advisor.criteria.map(item => `<li>${item}</li>`).join('');
+      document.getElementById('advisor-clipboard').value = advisor.clipboard;
+      sidePanel.classList.add('open');
+      sidePanel.setAttribute('aria-hidden', 'false');
+    }
+
+    document.getElementById('advisor-close').addEventListener('click', () => closeAdvisor());
+    document.getElementById('advisor-copy').addEventListener('click', async () => {
+      const text = document.getElementById('advisor-clipboard').value;
+      try {
+        await navigator.clipboard.writeText(text);
+        flashMessage('Referral summary copied to clipboard.');
+      } catch (error) {
+        flashMessage('Clipboard unavailable. Copy manually.');
+      }
+    });
+
+    function closeAdvisor() {
+      sidePanel.classList.remove('open');
+      sidePanel.setAttribute('aria-hidden', 'true');
+    }
+
+    function setupNotes() {
+      const saved = localStorage.getItem('cc-notes');
+      if (saved) {
+        notesField.value = saved;
+      }
+      document.getElementById('notes-save').addEventListener('click', () => {
+        localStorage.setItem('cc-notes', notesField.value);
+        flashMessage('Notes saved');
+      });
+      document.getElementById('notes-clear').addEventListener('click', () => {
+        notesField.value = '';
+        localStorage.removeItem('cc-notes');
+      });
+    }
+
+    function saveTemplateToNotes(template) {
+      notesField.value = `${notesField.value}\n\n${template}`.trim();
+      localStorage.setItem('cc-notes', notesField.value);
+      notesDrawer.classList.add('open');
+      notesDrawer.setAttribute('aria-hidden', 'false');
+      flashMessage('Template saved to notes');
+    }
+
+    function saveNote(name, value) {
+      const key = `cc-note-${name}`;
+      localStorage.setItem(key, value);
+    }
+
+    function loadNote(name) {
+      return localStorage.getItem(`cc-note-${name}`);
+    }
+
+    function setupCommandBar() {
+      commandButtons.forEach(btn => {
+        btn.addEventListener('click', () => {
+          const action = btn.dataset.command;
+          switch (action) {
+            case 'home':
+              tabButtons[0].click();
+              window.scrollTo({ top: 0, behavior: 'smooth' });
+              break;
+            case 'search':
+              toggleOverlay(globalSearchOverlay, true);
+              document.getElementById('global-search').focus();
+              break;
+            case 'checklist':
+              toggleOverlay(checklistOverlay, true);
+              break;
+            case 'notes':
+              notesDrawer.classList.toggle('open');
+              notesDrawer.setAttribute('aria-hidden', notesDrawer.classList.contains('open') ? 'false' : 'true');
+              break;
+          }
+        });
+      });
+
+      document.getElementById('close-search').addEventListener('click', () => toggleOverlay(globalSearchOverlay, false));
+      document.getElementById('close-checklist').addEventListener('click', () => toggleOverlay(checklistOverlay, false));
+      globalSearchOverlay.addEventListener('click', (event) => {
+        if (event.target === globalSearchOverlay) toggleOverlay(globalSearchOverlay, false);
+      });
+      checklistOverlay.addEventListener('click', (event) => {
+        if (event.target === checklistOverlay) toggleOverlay(checklistOverlay, false);
+      });
+
+      document.getElementById('global-search').addEventListener('input', handleGlobalSearch);
+    }
+
+    function toggleOverlay(overlay, open) {
+      overlay.classList.toggle('active', open);
+      overlay.setAttribute('aria-hidden', open ? 'false' : 'true');
+    }
+
+    function handleGlobalSearch(event) {
+      const query = event.target.value.trim().toLowerCase();
+      const results = document.getElementById('global-search-results');
+      results.innerHTML = '';
+      if (!query) return;
+
+      const matches = [];
+
+      // Agencies
+      document.querySelectorAll('[data-section="agencies"] .agency-entry').forEach(entry => {
+        const text = `${entry.dataset.name} ${entry.dataset.service}`;
+        if (text.includes(query)) {
+          matches.push({
+            type: 'Agency',
+            title: entry.querySelector('h4').textContent,
+            detail: entry.querySelector('.meta span').textContent
+          });
+        }
+      });
+
+      // Guidelines
+      (appData.atlas.guidelines || []).forEach(item => {
+        if (item.title.toLowerCase().includes(query) || item.keywords.some(key => key.includes(query))) {
+          matches.push({
+            type: 'Guideline',
+            title: item.title,
+            detail: item.summary[0]
+          });
+        }
+      });
+
+      // Templates
+      (appData.practice || []).forEach(item => {
+        if (item.title.toLowerCase().includes(query)) {
+          matches.push({
+            type: 'Checklist',
+            title: item.title,
+            detail: item.items[0]
+          });
+        }
+      });
+
+      if (!matches.length) {
+        results.innerHTML = '<div class="empty-state">No matches found. Try another phrase.</div>';
+        return;
+      }
+
+      matches.slice(0, 6).forEach(match => {
+        const card = document.createElement('article');
+        card.className = 'guideline-result';
+        card.innerHTML = `
+          <header style="display:flex;justify-content:space-between;align-items:center;">
+            <div>
+              <h4 style="margin:0;">${match.title}</h4>
+              <span style="color:var(--subtle);font-size:0.8rem;">${match.type}</span>
+            </div>
+          </header>
+          <p style="margin:8px 0 0;color:var(--subtle);">${match.detail}</p>
+        `;
+        results.appendChild(card);
+      });
+    }
+
+    function renderPracticeLayer(templates) {
+      const section = document.createElement('section');
+      section.className = 'practice-board';
+      section.innerHTML = '<div class="section-card"><div class="section-header"><h3>Practice Board</h3><span style="color:var(--subtle);font-size:0.85rem;">Stay prepped for clinic and huddles.</span></div><div class="card-grid" id="practice-grid"></div></div>';
+      const grid = section.querySelector('#practice-grid');
+      templates.forEach(template => {
+        const card = document.createElement('article');
+        card.className = 'template-card';
+        card.innerHTML = `<h4 style="margin:0;">${template.title}</h4><ul>${template.items.map(item => `<li>${item}</li>`).join('')}</ul>`;
+        grid.appendChild(card);
+      });
+      return section;
+    }
+
+    function renderCurriculumLayer(tracks) {
+      const section = document.createElement('section');
+      section.className = 'curriculum-board';
+      section.innerHTML = '<div class="section-card"><div class="section-header"><h3>Curriculum</h3><span style="color:var(--subtle);font-size:0.85rem;">Track mastery milestones.</span></div><div class="card-grid" id="curriculum-grid"></div></div>';
+      const grid = section.querySelector('#curriculum-grid');
+      tracks.forEach(track => {
+        const card = document.createElement('article');
+        card.className = 'template-card';
+        card.innerHTML = `<h4 style="margin:0;">${track.title}</h4><ul>${track.milestones.map(item => `<li>${item}</li>`).join('')}</ul>`;
+        grid.appendChild(card);
+      });
+      return section;
+    }
+
+    function renderChecklistTemplates() {
+      const list = document.getElementById('checklist-list');
+      list.innerHTML = '';
+      (appData.practice || []).forEach(template => {
+        const card = document.createElement('article');
+        card.className = 'guideline-result';
+        card.innerHTML = `<h4 style="margin:0 0 6px;">${template.title}</h4><ul>${template.items.map(item => `<li>${item}</li>`).join('')}</ul>`;
+        list.appendChild(card);
+      });
+    }
+
+    function renderCurriculum() {
+      // Already handled in renderCurriculumLayer but ensures overlay data ready
+    }
+
+    function flashMessage(text) {
+      const toast = document.createElement('div');
+      toast.textContent = text;
+      toast.style.position = 'fixed';
+      toast.style.bottom = '120px';
+      toast.style.right = '24px';
+      toast.style.padding = '12px 18px';
+      toast.style.background = 'rgba(31, 111, 120, 0.9)';
+      toast.style.color = 'white';
+      toast.style.borderRadius = '999px';
+      toast.style.boxShadow = '0 12px 32px rgba(0,0,0,0.35)';
+      toast.style.zIndex = '10';
+      toast.style.opacity = '0';
+      toast.style.transition = 'opacity 0.4s ease, transform 0.4s ease';
+      toast.style.transform = 'translateY(8px)';
+      document.body.appendChild(toast);
+      requestAnimationFrame(() => {
+        toast.style.opacity = '1';
+        toast.style.transform = 'translateY(0)';
+      });
+      setTimeout(() => {
+        toast.style.opacity = '0';
+        toast.style.transform = 'translateY(8px)';
+        setTimeout(() => toast.remove(), 400);
+      }, 2000);
+    }
+
+    document.addEventListener('keydown', (event) => {
+      if (event.key === 'Escape') {
+        toggleOverlay(globalSearchOverlay, false);
+        toggleOverlay(checklistOverlay, false);
+        closeAdvisor();
+        notesDrawer.classList.remove('open');
+        notesDrawer.setAttribute('aria-hidden', 'true');
+      }
+    });
+
+    boot();
+  </script>
 </body>
 </html>
