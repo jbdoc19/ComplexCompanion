@@ -2401,8 +2401,8 @@ window.initialData = to_js({
     }
 
     async function boot() {
-      appData = Object.assign({ atlas: {}, practice: {}, curriculum: [] }, loadInitialDataset());
-      practiceState = loadPracticeState(appData.practice || {});
+      appData = window.initialData ?? { atlas: {}, practice: [], curriculum: [] };
+      practiceState = loadPracticeState(appData.practice);
       appData.practice = practiceState;
       curriculumState = loadCurriculumState(appData.curriculum || []);
       appData.curriculum = curriculumState;
