@@ -860,26 +860,388 @@
       gap: 6px;
     }
 
-    .curriculum-board {
+    .curriculum-editor {
+      max-width: min(720px, 96vw);
+    }
+
+    .curriculum-convert {
+      max-width: min(640px, 94vw);
+    }
+
+    .curriculum-form {
       display: grid;
       gap: 16px;
     }
 
-    .template-card {
-      background: rgba(255, 255, 255, 0.03);
-      border: 1px solid rgba(255, 255, 255, 0.05);
-      border-radius: 12px;
-      padding: 16px;
-      display: grid;
-      gap: 10px;
-    }
-
-    .template-card ul {
-      margin: 0;
-      padding-left: 20px;
-      color: var(--subtle);
+    .curriculum-form .form-field {
       display: grid;
       gap: 6px;
+    }
+
+    .curriculum-form .form-field span {
+      font-size: 0.9rem;
+      color: var(--subtle);
+      font-weight: 500;
+    }
+
+    .curriculum-form-grid {
+      display: grid;
+      gap: 12px;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .curriculum-actions {
+      justify-content: space-between;
+    }
+
+    .curriculum-actions .button {
+      min-width: 120px;
+    }
+
+    @media (max-width: 640px) {
+      .curriculum-form-grid {
+        grid-template-columns: 1fr;
+      }
+      .curriculum-actions {
+        flex-direction: column;
+        align-items: stretch;
+      }
+      .curriculum-actions .button {
+        width: 100%;
+      }
+    }
+
+    .curriculum-layer {
+      display: grid;
+      gap: 18px;
+    }
+
+    .curriculum-header {
+      background: var(--surface);
+      border-radius: var(--radius);
+      padding: clamp(18px, 3vw, 28px);
+      display: grid;
+      gap: 14px;
+      box-shadow: 0 18px 48px rgba(0, 0, 0, 0.35);
+    }
+
+    .curriculum-header h2 {
+      font-size: 1.4rem;
+      margin: 0;
+    }
+
+    .curriculum-subtitle {
+      margin: 6px 0 0;
+      color: var(--subtle);
+      font-size: 0.95rem;
+    }
+
+    .curriculum-hint {
+      margin: 0;
+      color: rgba(148, 163, 184, 0.9);
+      font-size: 0.88rem;
+      letter-spacing: 0.01em;
+    }
+
+    .curriculum-controls {
+      display: grid;
+      gap: 10px;
+      grid-template-columns: minmax(0, 1fr) auto;
+      align-items: center;
+    }
+
+    .curriculum-controls .text-field {
+      width: 100%;
+    }
+
+    .curriculum-filter-summary {
+      grid-column: 1 / -1;
+      font-size: 0.85rem;
+      color: var(--subtle);
+    }
+
+    .curriculum-reset {
+      border: none;
+      border-radius: 999px;
+      padding: 8px 16px;
+      background: rgba(255, 255, 255, 0.08);
+      color: var(--subtle);
+      cursor: pointer;
+      font-size: 0.85rem;
+      transition: background var(--transition), color var(--transition);
+    }
+
+    .curriculum-reset:hover:not([disabled]) {
+      background: rgba(255, 255, 255, 0.14);
+      color: var(--text);
+    }
+
+    .curriculum-reset[disabled] {
+      opacity: 0.6;
+      cursor: not-allowed;
+    }
+
+    .curriculum-folder-bar {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      background: rgba(255, 255, 255, 0.02);
+      border-radius: var(--radius);
+      padding: 12px 16px;
+      border: 1px solid rgba(255, 255, 255, 0.04);
+    }
+
+    .folder-button {
+      border: none;
+      border-radius: 999px;
+      padding: 8px 16px;
+      background: rgba(31, 111, 120, 0.16);
+      color: var(--accent);
+      font-size: 0.85rem;
+      cursor: pointer;
+      transition: background var(--transition), color var(--transition), transform var(--transition);
+    }
+
+    .folder-button.active {
+      background: var(--accent);
+      color: var(--text);
+      transform: translateY(-1px);
+      box-shadow: 0 8px 22px rgba(31, 111, 120, 0.38);
+    }
+
+    .curriculum-tag-chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .curriculum-chip {
+      border: none;
+      border-radius: 999px;
+      padding: 6px 14px;
+      background: rgba(255, 255, 255, 0.06);
+      color: var(--subtle);
+      font-size: 0.82rem;
+      cursor: pointer;
+      transition: background var(--transition), color var(--transition), transform var(--transition);
+    }
+
+    .curriculum-chip.active {
+      background: rgba(31, 111, 120, 0.3);
+      color: var(--text);
+      transform: translateY(-1px);
+    }
+
+    .curriculum-grid {
+      display: grid;
+      gap: 16px;
+    }
+
+    .curriculum-card {
+      background: rgba(255, 255, 255, 0.03);
+      border-radius: 16px;
+      border: 1px solid rgba(255, 255, 255, 0.05);
+      padding: clamp(16px, 2.5vw, 24px);
+      display: grid;
+      gap: 14px;
+      box-shadow: 0 18px 42px rgba(0, 0, 0, 0.32);
+    }
+
+    .curriculum-card header {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .curriculum-card-title {
+      margin: 0;
+      font-size: 1.1rem;
+    }
+
+    .curriculum-card-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      align-items: center;
+      color: var(--subtle);
+      font-size: 0.8rem;
+      letter-spacing: 0.02em;
+    }
+
+    .curriculum-folder-pill {
+      padding: 4px 10px;
+      border-radius: 999px;
+      background: rgba(31, 111, 120, 0.2);
+      color: var(--accent);
+      font-weight: 500;
+      font-size: 0.78rem;
+    }
+
+    .curriculum-card-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+
+    .curriculum-card-tag {
+      padding: 4px 10px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.06);
+      font-size: 0.75rem;
+      color: rgba(226, 232, 240, 0.9);
+    }
+
+    .curriculum-card-body {
+      display: grid;
+      gap: 8px;
+      color: rgba(226, 232, 240, 0.92);
+      font-size: 0.93rem;
+      line-height: 1.6;
+    }
+
+    .curriculum-card-body p {
+      margin: 0;
+    }
+
+    .curriculum-card-body ul {
+      margin: 0;
+      padding-left: 20px;
+      display: grid;
+      gap: 6px;
+    }
+
+    .curriculum-references {
+      border-top: 1px solid rgba(255, 255, 255, 0.04);
+      padding-top: 12px;
+      display: grid;
+      gap: 6px;
+    }
+
+    .curriculum-references h4 {
+      margin: 0;
+      font-size: 0.9rem;
+      color: rgba(148, 163, 184, 0.95);
+    }
+
+    .curriculum-references ul {
+      margin: 0;
+      padding-left: 20px;
+      display: grid;
+      gap: 4px;
+      color: var(--accent);
+      font-size: 0.85rem;
+    }
+
+    .curriculum-card-footer {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      justify-content: flex-end;
+      align-items: center;
+    }
+
+    .curriculum-card-action {
+      border: none;
+      border-radius: 999px;
+      padding: 8px 16px;
+      background: rgba(255, 255, 255, 0.08);
+      color: var(--text);
+      font-size: 0.85rem;
+      cursor: pointer;
+      transition: background var(--transition), color var(--transition);
+    }
+
+    .curriculum-card-action.secondary {
+      background: rgba(31, 111, 120, 0.24);
+      color: var(--accent);
+      border: 1px solid rgba(31, 111, 120, 0.5);
+    }
+
+    .curriculum-card-action:hover {
+      background: rgba(255, 255, 255, 0.16);
+      color: var(--text);
+    }
+
+    .curriculum-card-action.secondary:hover {
+      background: rgba(31, 111, 120, 0.35);
+      color: var(--text);
+    }
+
+    .curriculum-quickbar {
+      background: rgba(31, 111, 120, 0.2);
+      border: 1px solid rgba(31, 111, 120, 0.45);
+      border-radius: var(--radius);
+      padding: 14px clamp(16px, 3vw, 22px);
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .curriculum-quickbar span {
+      font-size: 0.9rem;
+      color: rgba(226, 232, 240, 0.92);
+    }
+
+    .quick-action {
+      border: none;
+      border-radius: 999px;
+      padding: 10px 20px;
+      background: var(--accent);
+      color: var(--text);
+      font-size: 0.9rem;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      transition: transform var(--transition), box-shadow var(--transition);
+    }
+
+    .quick-action.secondary {
+      background: rgba(255, 255, 255, 0.12);
+      color: var(--text);
+    }
+
+    .quick-action:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 10px 26px rgba(31, 111, 120, 0.45);
+    }
+
+    .curriculum-preview {
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid rgba(255, 255, 255, 0.05);
+      border-radius: 14px;
+      padding: 14px;
+      display: grid;
+      gap: 8px;
+      max-height: 240px;
+      overflow-y: auto;
+      font-size: 0.88rem;
+      line-height: 1.6;
+      color: rgba(226, 232, 240, 0.9);
+    }
+
+    .curriculum-preview p {
+      margin: 0;
+    }
+
+    .curriculum-preview ul {
+      margin: 0;
+      padding-left: 20px;
+      display: grid;
+      gap: 6px;
+    }
+
+    .button.danger {
+      background: rgba(239, 68, 68, 0.16);
+      color: #fca5a5;
+      border: 1px solid rgba(239, 68, 68, 0.45);
+    }
+
+    .button.danger:hover {
+      background: rgba(239, 68, 68, 0.25);
+      box-shadow: 0 8px 22px rgba(239, 68, 68, 0.3);
     }
 
     .empty-state {
@@ -896,6 +1258,22 @@
         flex-direction: column;
         align-items: flex-start;
         gap: 12px;
+      }
+      .curriculum-controls {
+        grid-template-columns: 1fr;
+        align-items: stretch;
+      }
+      .curriculum-reset {
+        justify-self: start;
+      }
+      .curriculum-quickbar {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 14px;
+      }
+      .curriculum-quickbar .quick-action {
+        width: 100%;
+        justify-content: center;
       }
       .command-bar {
         grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -1068,6 +1446,85 @@
         <div class="action-row">
           <button class="button secondary" type="button" id="delete-template">Delete</button>
           <button class="button" type="submit">Save Template</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <div class="overlay" id="curriculum-overlay" aria-hidden="true">
+    <div class="overlay-card curriculum-editor" role="dialog" aria-modal="true" aria-labelledby="curriculum-editor-title">
+      <div class="section-header">
+        <div>
+          <h2 id="curriculum-editor-title">Add teaching point</h2>
+          <p style="margin:4px 0 0;color:var(--subtle);font-size:0.9rem;">Keep it brief; tags help future you find it fast.</p>
+        </div>
+        <button class="button secondary" type="button" id="close-curriculum-editor">Cancel</button>
+      </div>
+      <form id="curriculum-form" class="curriculum-form">
+        <label class="form-field">
+          <span>Title</span>
+          <input type="text" id="curriculum-title" class="text-field" placeholder="Feeding intolerance in neurologically impaired children." required />
+        </label>
+        <div class="curriculum-form-grid">
+          <label class="form-field">
+            <span>Folder</span>
+            <input type="text" id="curriculum-theme" class="text-field" list="curriculum-theme-options" placeholder="Nutrition" />
+          </label>
+          <label class="form-field">
+            <span>Tags</span>
+            <input type="text" id="curriculum-tags" class="text-field" placeholder="GI, resident teaching, parent counseling" />
+          </label>
+        </div>
+        <label class="form-field">
+          <span>Teaching summary</span>
+          <textarea id="curriculum-body" class="text-area" rows="6" placeholder="Add pearls, scripts, or coaching prompts..." required></textarea>
+        </label>
+        <label class="form-field">
+          <span>References (optional)</span>
+          <textarea id="curriculum-references" class="text-area" rows="3" placeholder="Label - https://example.org/guideline"></textarea>
+        </label>
+        <datalist id="curriculum-theme-options"></datalist>
+        <div class="action-row curriculum-actions">
+          <button class="button secondary" type="button" id="curriculum-cancel">Close</button>
+          <button class="button danger" type="button" id="curriculum-delete">Archive</button>
+          <button class="button" type="submit">Save teaching point</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <div class="overlay" id="curriculum-convert-overlay" aria-hidden="true">
+    <div class="overlay-card curriculum-convert" role="dialog" aria-modal="true" aria-labelledby="curriculum-convert-heading">
+      <div class="section-header">
+        <div>
+          <h2 id="curriculum-convert-heading">Convert to checklist</h2>
+          <p style="margin:4px 0 0;color:var(--subtle);font-size:0.9rem;">Turn a teaching script into a ready-to-run checklist.</p>
+        </div>
+        <button class="button secondary" type="button" id="close-curriculum-convert">Cancel</button>
+      </div>
+      <form id="curriculum-convert-form" class="curriculum-form">
+        <label class="form-field">
+          <span>Teaching point</span>
+          <select id="curriculum-convert-select" class="text-field"></select>
+        </label>
+        <label class="form-field">
+          <span>Checklist title</span>
+          <input type="text" id="curriculum-convert-title" class="text-field" placeholder="Feeding intolerance pearls" />
+        </label>
+        <div class="curriculum-form-grid">
+          <label class="form-field">
+            <span>Section title</span>
+            <input type="text" id="curriculum-convert-section" class="text-field" placeholder="Morning huddle focus" />
+          </label>
+          <label class="form-field">
+            <span>Section note (optional)</span>
+            <input type="text" id="curriculum-convert-note" class="text-field" placeholder="Context for learners" />
+          </label>
+        </div>
+        <div class="curriculum-preview" id="curriculum-convert-preview">Select a teaching point to preview its content.</div>
+        <div class="action-row">
+          <button class="button secondary" type="button" id="curriculum-convert-cancel">Close</button>
+          <button class="button" type="submit">Create checklist</button>
         </div>
       </form>
     </div>
@@ -1394,21 +1851,46 @@ practice_templates = {
 
 curriculum_tracks = [
     {
-        "title": "New Clinician Onboarding",
-        "milestones": [
-            "Week 1: Orientation & safety walkthrough",
-            "Week 2: Atlas navigation & tagging",
-            "Week 3: Practice templates in workflow",
-            "Week 4: Co-lead family conference"
+        "id": "nutrition-feeding-intolerance",
+        "title": "Feeding intolerance in neurologically impaired children.",
+        "theme": "Nutrition",
+        "tags": ["GI", "Resident Teaching", "Parent Counseling"],
+        "body": """**Check-in**\n- Ask about retching, abdominal distention, and stooling pattern.\n- Confirm current formula, volume, and venting strategy.\n- Review hydration labs and weight change over the last two visits.\n- Script for caregivers: 'If feeds back up twice in a day, vent, pause 30 minutes, then call the team.'""",
+        "references": [
+            {"label": "ESPGHAN Neurodisability Feeding Guideline", "url": "https://example.org/espghan-feeding"},
+            {"label": "Home venting protocol handout", "url": "https://example.org/venting-handout"}
         ]
     },
     {
-        "title": "Advanced Care Planning",
-        "milestones": [
-            "Refresh POLST vs POST regulations",
-            "Conduct two supervised goals-of-care visits",
-            "Build custom hospice checklist",
-            "Teach session to peers"
+        "id": "pulmonary-niv-check-in",
+        "title": "Nighttime noninvasive ventilation check-in.",
+        "theme": "Pulmonary",
+        "tags": ["Respiratory", "Equipment", "Sleep"],
+        "body": """Before visit\n- Confirm download of the last 30 nights and adherence summary.\nRoom script\n- Ask the caregiver to demonstrate mask seal and backup battery placement.\n- Review red flag symptoms: morning headaches, daytime fatigue, unplanned hospital use.\nTeaching pearl\n- Normalize adjusting IPAP by 1–2 cm H₂O after scoliosis surgery if the trend shows desaturations.""",
+        "references": [
+            {"label": "ATS Pediatric Home Ventilation Statement", "url": "https://example.org/home-vent"},
+            {"label": "Mask fitting video link", "url": "https://example.org/mask-fit"}
+        ]
+    },
+    {
+        "id": "neurogenetics-wes-counseling",
+        "title": "Pre-test counseling for whole exome sequencing.",
+        "theme": "Neurogenetics",
+        "tags": ["Family Counseling", "Ethics", "Diagnostics"],
+        "body": """Key steps\n- Confirm insurance authorization and sample logistics.\n- Review possible results: positive, negative, variant of uncertain significance.\n- Script: 'We will share unexpected findings that change adult health only if you opt in.'\n- Identify partner disciplines (genetic counselor, social worker) for follow-up questions.""",
+        "references": [
+            {"label": "ACMG consent checklist", "url": "https://example.org/acmg-consent"}
+        ]
+    },
+    {
+        "id": "eol-hospice-conversation",
+        "title": "Framing hospice conversations for progressive neuromuscular disease.",
+        "theme": "End-of-Life Care",
+        "tags": ["Communication", "Team Coaching", "Family Support"],
+        "body": """Set the stage\n- Anchor to the family's stated goals from the last visit.\n- Offer parallel planning: 'We keep supporting rehab while planning for comfort.'\n- Invite interdisciplinary voices: respiratory therapy for secretion management, chaplain for caregiver grief.\nAfter visit\n- Update the shared checklist with who is covering 24/7 contact and equipment returns.""",
+        "references": [
+            {"label": "NHPCO Pediatric Hospice Conversation Guide", "url": "https://example.org/nhpco-convo"},
+            {"label": "State hospice waiver summary", "url": "https://example.org/state-waiver"}
         ]
     }
 ]
@@ -1434,25 +1916,52 @@ window.initialData = to_js({
     const templateOverlay = document.getElementById('template-overlay');
     const templateForm = document.getElementById('template-editor-form');
     const commandButtons = document.querySelectorAll('.command-button');
+    const curriculumOverlay = document.getElementById('curriculum-overlay');
+    const curriculumForm = document.getElementById('curriculum-form');
+    const curriculumTitleField = document.getElementById('curriculum-title');
+    const curriculumThemeField = document.getElementById('curriculum-theme');
+    const curriculumTagsField = document.getElementById('curriculum-tags');
+    const curriculumBodyField = document.getElementById('curriculum-body');
+    const curriculumReferencesField = document.getElementById('curriculum-references');
+    const curriculumCancelButton = document.getElementById('curriculum-cancel');
+    const curriculumDeleteButton = document.getElementById('curriculum-delete');
+    const curriculumThemeOptions = document.getElementById('curriculum-theme-options');
+    const closeCurriculumEditorButton = document.getElementById('close-curriculum-editor');
+    const curriculumConvertOverlay = document.getElementById('curriculum-convert-overlay');
+    const curriculumConvertForm = document.getElementById('curriculum-convert-form');
+    const curriculumConvertSelect = document.getElementById('curriculum-convert-select');
+    const curriculumConvertTitleField = document.getElementById('curriculum-convert-title');
+    const curriculumConvertSectionField = document.getElementById('curriculum-convert-section');
+    const curriculumConvertNoteField = document.getElementById('curriculum-convert-note');
+    const curriculumConvertPreview = document.getElementById('curriculum-convert-preview');
+    const closeCurriculumConvertButton = document.getElementById('close-curriculum-convert');
+    const curriculumConvertCancelButton = document.getElementById('curriculum-convert-cancel');
 
     let appData = null;
     let practiceState = null;
     let carePlanDraft = null;
+    let curriculumState = null;
     let activeFocusChecklist = null;
     let editingTemplateId = null;
+    let editingCurriculumId = null;
+    const curriculumFilters = { query: '', theme: 'all', tags: new Set() };
     const PRACTICE_STORAGE_KEY = 'cc-practice-engine';
     const CARE_PLAN_STORAGE_KEY = 'cc-care-plan-draft';
+    const CURRICULUM_STORAGE_KEY = 'cc-curriculum-layer';
 
     async function boot() {
       await ensurePyodideReady();
       appData = window.initialData ?? { atlas: {}, practice: [], curriculum: [] };
       practiceState = loadPracticeState(appData.practice);
       appData.practice = practiceState;
+      curriculumState = loadCurriculumState(appData.curriculum);
+      appData.curriculum = curriculumState;
       carePlanDraft = loadCarePlanDraft(practiceState.care_plan_defaults);
       renderTab('atlas');
       setupTabs();
       setupCommandBar();
       setupNotes();
+      setupCurriculum();
       renderChecklistTemplates();
       renderCurriculum();
       setupTemplateEditor();
@@ -1504,7 +2013,7 @@ window.initialData = to_js({
           tabPanels.appendChild(renderPracticeLayer(practiceState));
           break;
         case 'curriculum':
-          tabPanels.appendChild(renderCurriculumLayer(appData.curriculum));
+          tabPanels.appendChild(renderCurriculumLayer(curriculumState));
           break;
         default:
           tabPanels.innerHTML = '<div class="empty-state">No content available.</div>';
@@ -1978,6 +2487,53 @@ window.initialData = to_js({
       });
     }
 
+    function setupCurriculum() {
+      if (!curriculumState) {
+        curriculumState = { entries: [] };
+      }
+      if (curriculumForm) {
+        curriculumForm.addEventListener('submit', handleCurriculumSubmit);
+      }
+      if (curriculumCancelButton) {
+        curriculumCancelButton.addEventListener('click', () => closeCurriculumEditor());
+      }
+      if (closeCurriculumEditorButton) {
+        closeCurriculumEditorButton.addEventListener('click', () => closeCurriculumEditor());
+      }
+      if (curriculumDeleteButton) {
+        curriculumDeleteButton.addEventListener('click', handleCurriculumDelete);
+      }
+      if (curriculumOverlay) {
+        curriculumOverlay.addEventListener('click', (event) => {
+          if (event.target === curriculumOverlay) {
+            closeCurriculumEditor();
+          }
+        });
+      }
+      if (curriculumConvertForm) {
+        curriculumConvertForm.addEventListener('submit', handleCurriculumConvert);
+      }
+      if (curriculumConvertCancelButton) {
+        curriculumConvertCancelButton.addEventListener('click', () => closeCurriculumConvertOverlay());
+      }
+      if (closeCurriculumConvertButton) {
+        closeCurriculumConvertButton.addEventListener('click', () => closeCurriculumConvertOverlay());
+      }
+      if (curriculumConvertOverlay) {
+        curriculumConvertOverlay.addEventListener('click', (event) => {
+          if (event.target === curriculumConvertOverlay) {
+            closeCurriculumConvertOverlay();
+          }
+        });
+      }
+      if (curriculumConvertSelect) {
+        curriculumConvertSelect.addEventListener('change', () => {
+          updateCurriculumConvertPreview(curriculumConvertSelect.value);
+        });
+      }
+      updateCurriculumHelpers();
+    }
+
     function clone(value) {
       if (typeof structuredClone === 'function') {
         try {
@@ -2079,6 +2635,99 @@ window.initialData = to_js({
       renderChecklistTemplates();
     }
 
+    function normalizeCurriculumReference(ref, entryId, index) {
+      if (typeof ref === 'string') {
+        const trimmed = ref.trim();
+        const separatorMatch = trimmed.match(/^(.*?)\s*[-|–]\s*(https?:\/\/\S+)$/i);
+        if (separatorMatch) {
+          return {
+            id: `${entryId}-ref-${index + 1}`,
+            label: separatorMatch[1].trim() || separatorMatch[2].trim(),
+            url: separatorMatch[2].trim()
+          };
+        }
+        if (/^https?:\/\//i.test(trimmed)) {
+          return {
+            id: `${entryId}-ref-${index + 1}`,
+            label: trimmed,
+            url: trimmed
+          };
+        }
+        return {
+          id: `${entryId}-ref-${index + 1}`,
+          label: trimmed,
+          url: ''
+        };
+      }
+      if (!ref) {
+        return { id: `${entryId}-ref-${index + 1}`, label: '', url: '' };
+      }
+      return {
+        id: ref.id || `${entryId}-ref-${index + 1}`,
+        label: ref.label || ref.url || `Reference ${index + 1}`,
+        url: ref.url || ''
+      };
+    }
+
+    function normalizeCurriculumEntry(entry, index) {
+      const id = entry.id || `curriculum-${index + 1}`;
+      const theme = (entry.theme || 'General').trim() || 'General';
+      const tags = Array.from(new Set(
+        (Array.isArray(entry.tags) ? entry.tags : String(entry.tags || '').split(/[,|]/))
+          .map(tag => tag.trim())
+          .filter(Boolean)
+      ));
+      const body = entry.body ? String(entry.body) : '';
+      const createdAt = entry.createdAt || entry.updatedAt || new Date().toISOString();
+      const updatedAt = entry.updatedAt || createdAt;
+      const references = (entry.references || []).map((ref, refIndex) => normalizeCurriculumReference(ref, id, refIndex));
+      const normalized = {
+        id,
+        title: entry.title || `Teaching Point ${index + 1}`,
+        theme,
+        tags,
+        body,
+        references,
+        createdAt,
+        updatedAt
+      };
+      normalized.searchText = `${normalized.title} ${normalized.theme} ${normalized.tags.join(' ')} ${normalized.body} ${references.map(ref => `${ref.label} ${ref.url}`).join(' ')}`.toLowerCase();
+      return normalized;
+    }
+
+    function normalizeCurriculumData(data) {
+      const source = Array.isArray(data) ? data : (data && data.entries) || [];
+      const entries = source.map((entry, index) => normalizeCurriculumEntry(entry, index));
+      entries.sort((a, b) => {
+        const aTime = Date.parse(a.updatedAt || '') || 0;
+        const bTime = Date.parse(b.updatedAt || '') || 0;
+        return bTime - aTime;
+      });
+      return { entries };
+    }
+
+    function loadCurriculumState(defaultData) {
+      const fallback = normalizeCurriculumData(defaultData);
+      try {
+        const saved = localStorage.getItem(CURRICULUM_STORAGE_KEY);
+        if (saved) {
+          return normalizeCurriculumData(JSON.parse(saved));
+        }
+      } catch (error) {
+        console.warn('Unable to load curriculum data', error);
+      }
+      return fallback;
+    }
+
+    function persistCurriculumState() {
+      try {
+        localStorage.setItem(CURRICULUM_STORAGE_KEY, JSON.stringify(curriculumState));
+      } catch (error) {
+        console.warn('Unable to save curriculum data', error);
+      }
+      updateCurriculumHelpers();
+    }
+
     function loadCarePlanDraft(defaults) {
       const base = {
         goals: Array.isArray(defaults.goals) ? defaults.goals.join('\n') : defaults.goals || '',
@@ -2122,6 +2771,435 @@ window.initialData = to_js({
     function loadNote(name) {
       return localStorage.getItem(`cc-note-${name}`);
     }
+
+    function updateCurriculumHelpers() {
+      updateCurriculumThemeOptions();
+      updateCurriculumConvertOptions(curriculumConvertSelect ? curriculumConvertSelect.value : null);
+    }
+
+    function updateCurriculumThemeOptions() {
+      if (!curriculumThemeOptions) return;
+      curriculumThemeOptions.innerHTML = '';
+      const themes = Array.from(new Set((curriculumState?.entries || []).map(entry => entry.theme))).sort((a, b) => a.localeCompare(b));
+      themes.forEach(theme => {
+        const option = document.createElement('option');
+        option.value = theme;
+        curriculumThemeOptions.appendChild(option);
+      });
+    }
+
+    function updateCurriculumConvertOptions(selectedId) {
+      if (!curriculumConvertSelect) return;
+      const entries = curriculumState?.entries || [];
+      curriculumConvertSelect.innerHTML = '';
+      if (!entries.length) {
+        const option = document.createElement('option');
+        option.value = '';
+        option.textContent = 'Add a teaching point to begin';
+        curriculumConvertSelect.appendChild(option);
+        curriculumConvertSelect.disabled = true;
+        if (curriculumConvertPreview) {
+          curriculumConvertPreview.textContent = 'Select a teaching point to preview its content.';
+        }
+        return;
+      }
+      curriculumConvertSelect.disabled = false;
+      entries.forEach(entry => {
+        const option = document.createElement('option');
+        option.value = entry.id;
+        option.textContent = entry.title;
+        curriculumConvertSelect.appendChild(option);
+      });
+      const targetId = selectedId && entries.some(entry => entry.id === selectedId)
+        ? selectedId
+        : entries[0].id;
+      curriculumConvertSelect.value = targetId;
+      updateCurriculumConvertPreview(targetId);
+    }
+
+    function updateCurriculumConvertPreview(entryId) {
+      if (!curriculumConvertPreview) return;
+      const entry = (curriculumState?.entries || []).find(item => item.id === entryId);
+      if (!entry) {
+        curriculumConvertPreview.textContent = 'Select a teaching point to preview its content.';
+        return;
+      }
+      curriculumConvertPreview.innerHTML = formatCurriculumBody(entry.body);
+      if (curriculumConvertTitleField) {
+        const cleanTitle = entry.title.endsWith('.') ? entry.title.slice(0, -1) : entry.title;
+        curriculumConvertTitleField.value = cleanTitle;
+      }
+      if (curriculumConvertSectionField) {
+        curriculumConvertSectionField.value = entry.theme ? `${entry.theme} pearls` : 'Teaching points';
+      }
+      if (curriculumConvertNoteField) {
+        curriculumConvertNoteField.value = entry.theme ? `Generated from your ${entry.theme.toLowerCase()} folder` : '';
+      }
+    }
+
+    function openCurriculumEditor(entryId) {
+      if (!curriculumForm) return;
+      updateCurriculumThemeOptions();
+      const titleEl = document.getElementById('curriculum-editor-title');
+      if (entryId) {
+        const entry = (curriculumState?.entries || []).find(item => item.id === entryId);
+        if (!entry) return;
+        editingCurriculumId = entryId;
+        if (titleEl) {
+          titleEl.textContent = 'Update teaching point';
+        }
+        if (curriculumTitleField) curriculumTitleField.value = entry.title;
+        if (curriculumThemeField) curriculumThemeField.value = entry.theme;
+        if (curriculumTagsField) curriculumTagsField.value = entry.tags.join(', ');
+        if (curriculumBodyField) curriculumBodyField.value = entry.body;
+        if (curriculumReferencesField) {
+          curriculumReferencesField.value = entry.references
+            .map(ref => (ref.url ? `${ref.label} - ${ref.url}` : ref.label))
+            .join('\n');
+        }
+        if (curriculumDeleteButton) {
+          curriculumDeleteButton.style.display = 'inline-flex';
+        }
+      } else {
+        editingCurriculumId = null;
+        if (titleEl) {
+          titleEl.textContent = 'Add teaching point';
+        }
+        curriculumForm.reset();
+        if (curriculumDeleteButton) {
+          curriculumDeleteButton.style.display = 'none';
+        }
+      }
+      toggleOverlay(curriculumOverlay, true);
+      requestAnimationFrame(() => {
+        if (curriculumTitleField) curriculumTitleField.focus();
+      });
+    }
+
+    function closeCurriculumEditor() {
+      if (curriculumForm) {
+        curriculumForm.reset();
+      }
+      editingCurriculumId = null;
+      if (curriculumDeleteButton) {
+        curriculumDeleteButton.style.display = 'none';
+      }
+      toggleOverlay(curriculumOverlay, false);
+    }
+
+    function parseCurriculumTags(value) {
+      return Array.from(new Set(
+        String(value || '')
+          .split(/[,|]/)
+          .map(tag => tag.trim())
+          .filter(Boolean)
+      ));
+    }
+
+    function parseCurriculumReferences(value) {
+      return String(value || '')
+        .split('\n')
+        .map(line => line.trim())
+        .filter(Boolean)
+        .map(line => {
+          const separatorMatch = line.match(/^(.*?)\s*[-|–]\s*(https?:\/\/\S+)$/i);
+          if (separatorMatch) {
+            return { label: separatorMatch[1].trim() || separatorMatch[2].trim(), url: separatorMatch[2].trim() };
+          }
+          if (/^https?:\/\//i.test(line)) {
+            return { label: line, url: line };
+          }
+          return { label: line, url: '' };
+        });
+    }
+
+    function handleCurriculumSubmit(event) {
+      event.preventDefault();
+      if (!curriculumForm) return;
+      const title = curriculumTitleField ? curriculumTitleField.value.trim() : '';
+      if (!title && curriculumTitleField) {
+        curriculumTitleField.focus();
+        return;
+      }
+      const body = curriculumBodyField ? curriculumBodyField.value.trim() : '';
+      if (!body && curriculumBodyField) {
+        curriculumBodyField.focus();
+        return;
+      }
+      const theme = curriculumThemeField ? curriculumThemeField.value.trim() || 'General' : 'General';
+      const tags = parseCurriculumTags(curriculumTagsField ? curriculumTagsField.value : '');
+      const references = parseCurriculumReferences(curriculumReferencesField ? curriculumReferencesField.value : '');
+      const now = new Date().toISOString();
+      if (editingCurriculumId) {
+        const target = (curriculumState?.entries || []).find(item => item.id === editingCurriculumId);
+        if (target) {
+          Object.assign(target, normalizeCurriculumEntry({
+            id: editingCurriculumId,
+            title,
+            theme,
+            tags,
+            body,
+            references,
+            createdAt: target.createdAt,
+            updatedAt: now
+          }, 0));
+        }
+      } else {
+        const baseId = ensureUniqueCurriculumId(slugify(title) || `teaching-point-${Date.now()}`);
+        const newEntry = normalizeCurriculumEntry({
+          id: baseId,
+          title,
+          theme,
+          tags,
+          body,
+          references,
+          createdAt: now,
+          updatedAt: now
+        }, (curriculumState?.entries || []).length);
+        curriculumState.entries.unshift(newEntry);
+      }
+      curriculumState.entries.sort((a, b) => {
+        const aTime = Date.parse(a.updatedAt || '') || 0;
+        const bTime = Date.parse(b.updatedAt || '') || 0;
+        return bTime - aTime;
+      });
+      persistCurriculumState();
+      flashMessage(editingCurriculumId ? 'Teaching point updated.' : 'Teaching point added.');
+      closeCurriculumEditor();
+      if (isCurriculumActive()) {
+        renderTab('curriculum');
+      }
+    }
+
+    function handleCurriculumDelete() {
+      if (!editingCurriculumId) {
+        closeCurriculumEditor();
+        return;
+      }
+      const entries = curriculumState?.entries || [];
+      const index = entries.findIndex(entry => entry.id === editingCurriculumId);
+      if (index !== -1) {
+        entries.splice(index, 1);
+        persistCurriculumState();
+        flashMessage('Teaching point archived.');
+      }
+      editingCurriculumId = null;
+      closeCurriculumEditor();
+      if (isCurriculumActive()) {
+        renderTab('curriculum');
+      }
+    }
+
+    function openCurriculumConvert(entryId) {
+      const entries = curriculumState?.entries || [];
+      if (!entries.length) {
+        flashMessage('Add a teaching point first.');
+        return;
+      }
+      updateCurriculumConvertOptions(entryId);
+      toggleOverlay(curriculumConvertOverlay, true);
+      requestAnimationFrame(() => {
+        if (curriculumConvertSelect) curriculumConvertSelect.focus();
+      });
+    }
+
+    function closeCurriculumConvertOverlay() {
+      if (curriculumConvertForm) {
+        curriculumConvertForm.reset();
+      }
+      if (curriculumConvertPreview) {
+        curriculumConvertPreview.textContent = 'Select a teaching point to preview its content.';
+      }
+      toggleOverlay(curriculumConvertOverlay, false);
+    }
+
+    function extractChecklistItemsFromBody(body) {
+      const text = String(body || '');
+      const lines = text.split(/\r?\n/).map(line => line.trim());
+      const bulletItems = lines
+        .filter(line => /^[-*•]/.test(line))
+        .map(line => line.replace(/^[-*•]\s*/, ''))
+        .map(item => stripMarkdown(item))
+        .filter(Boolean);
+      if (bulletItems.length) {
+        return bulletItems.slice(0, 12);
+      }
+      const paragraphs = text.split(/\n{2,}/).map(chunk => stripMarkdown(chunk)).filter(Boolean);
+      if (paragraphs.length) {
+        return paragraphs.slice(0, 12);
+      }
+      const fallback = stripMarkdown(text);
+      return fallback ? [fallback] : [];
+    }
+
+    function handleCurriculumConvert(event) {
+      event.preventDefault();
+      const entries = curriculumState?.entries || [];
+      if (!entries.length) return;
+      const entryId = curriculumConvertSelect ? curriculumConvertSelect.value : '';
+      const source = entries.find(item => item.id === entryId) || entries[0];
+      const title = curriculumConvertTitleField && curriculumConvertTitleField.value.trim()
+        ? curriculumConvertTitleField.value.trim()
+        : (source.title.endsWith('.') ? source.title.slice(0, -1) : source.title);
+      const sectionTitle = curriculumConvertSectionField && curriculumConvertSectionField.value.trim()
+        ? curriculumConvertSectionField.value.trim()
+        : (source.theme ? `${source.theme} pearls` : 'Teaching points');
+      const note = curriculumConvertNoteField ? curriculumConvertNoteField.value.trim() : '';
+      let items = extractChecklistItemsFromBody(source.body);
+      if (!items.length) {
+        items = source.tags.map(tag => `Discuss: ${tag}`);
+      }
+      if (!items.length) {
+        items = [source.title];
+      }
+      const baseId = ensureUniqueChecklistId(slugify(title) || `curriculum-checklist-${Date.now()}`);
+      const checklistDraft = {
+        id: baseId,
+        title,
+        sections: [
+          {
+            id: `${baseId}-section-1`,
+            title: sectionTitle || 'Teaching points',
+            description: note,
+            items
+          }
+        ]
+      };
+      const normalized = normalizeChecklist(checklistDraft, practiceState.checklists.length);
+      practiceState.checklists.push(normalized);
+      persistPracticeState();
+      flashMessage('Checklist created from curriculum entry.');
+      closeCurriculumConvertOverlay();
+      if (isPracticeActive()) {
+        renderTab('practice');
+      }
+    }
+
+    function ensureUniqueCurriculumId(baseId) {
+      const existing = new Set((curriculumState?.entries || []).map(entry => entry.id));
+      const sanitized = baseId || 'curriculum-entry';
+      if (!existing.has(sanitized)) {
+        return sanitized;
+      }
+      let counter = 2;
+      let candidate = `${sanitized}-${counter}`;
+      while (existing.has(candidate)) {
+        counter += 1;
+        candidate = `${sanitized}-${counter}`;
+      }
+      return candidate;
+    }
+
+    function ensureUniqueChecklistId(baseId) {
+      const existing = new Set((practiceState?.checklists || []).map(checklist => checklist.id));
+      const sanitized = baseId || 'checklist';
+      if (!existing.has(sanitized)) {
+        return sanitized;
+      }
+      let counter = 2;
+      let candidate = `${sanitized}-${counter}`;
+      while (existing.has(candidate)) {
+        counter += 1;
+        candidate = `${sanitized}-${counter}`;
+      }
+      return candidate;
+    }
+
+    function escapeHtml(value) {
+      return String(value ?? '')
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#39;');
+    }
+
+    function formatInlineMarkdown(text) {
+      const source = String(text ?? '');
+      const linkPattern = /\[(.+?)\]\((https?:\/\/[^\s)]+)\)/g;
+      let result = '';
+      let lastIndex = 0;
+      let match;
+      while ((match = linkPattern.exec(source)) !== null) {
+        result += escapeHtml(source.slice(lastIndex, match.index));
+        const label = escapeHtml(match[1]);
+        const url = match[2];
+        result += `<a href="${url}" target="_blank" rel="noopener">${label}</a>`;
+        lastIndex = match.index + match[0].length;
+      }
+      result += escapeHtml(source.slice(lastIndex));
+      return result
+        .replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>')
+        .replace(/__(.+?)__/g, '<strong>$1</strong>')
+        .replace(/\*(.+?)\*/g, '<em>$1</em>')
+        .replace(/_(.+?)_/g, '<em>$1</em>')
+        .replace(/`(.+?)`/g, '<code>$1</code>');
+    }
+
+    function formatCurriculumBody(body) {
+      const lines = String(body || '').split(/\r?\n/);
+      const segments = [];
+      let listItems = [];
+      lines.forEach(line => {
+        const trimmed = line.trim();
+        if (!trimmed) {
+          if (listItems.length) {
+            segments.push(`<ul>${listItems.join('')}</ul>`);
+            listItems = [];
+          }
+          return;
+        }
+        const bulletMatch = trimmed.match(/^[-*•]\s+(.*)/);
+        if (bulletMatch) {
+          listItems.push(`<li>${formatInlineMarkdown(bulletMatch[1])}</li>`);
+        } else {
+          if (listItems.length) {
+            segments.push(`<ul>${listItems.join('')}</ul>`);
+            listItems = [];
+          }
+          segments.push(`<p>${formatInlineMarkdown(trimmed)}</p>`);
+        }
+      });
+      if (listItems.length) {
+        segments.push(`<ul>${listItems.join('')}</ul>`);
+      }
+      return segments.join('') || '<p></p>';
+    }
+
+    function stripMarkdown(value) {
+      return String(value || '')
+        .replace(/\[(.+?)\]\((https?:\/\/[^\s)]+)\)/g, '$1')
+        .replace(/[*_`~]/g, '')
+        .replace(/#{1,6}\s*/g, '')
+        .replace(/>\s?/g, '')
+        .replace(/\s+/g, ' ')
+        .trim();
+    }
+
+    function formatRelativeTime(isoString) {
+      if (!isoString) return '';
+      const value = Date.parse(isoString);
+      if (Number.isNaN(value)) return '';
+      const diff = Date.now() - value;
+      if (diff < 60000) return 'just now';
+      const minutes = Math.floor(diff / 60000);
+      if (minutes < 60) return `${minutes} min${minutes === 1 ? '' : 's'} ago`;
+      const hours = Math.floor(minutes / 60);
+      if (hours < 24) return `${hours} hr${hours === 1 ? '' : 's'} ago`;
+      const days = Math.floor(hours / 24);
+      if (days < 7) return `${days} day${days === 1 ? '' : 's'} ago`;
+      return new Date(value).toLocaleDateString(undefined, { month: 'short', day: 'numeric' });
+    }
+
+    function buildCurriculumHint() {
+      const entries = curriculumState?.entries || [];
+      if (!entries.length) {
+        return 'You looked at AAC devices yesterday — reopen that reference?';
+      }
+      const latest = entries[0];
+      return `You captured ${latest.theme.toLowerCase()} pearls yesterday — want to add another while it’s fresh?`;
+    }
+
 
     function setupCommandBar() {
       commandButtons.forEach(btn => {
@@ -2848,6 +3926,11 @@ window.initialData = to_js({
       return practiceButton && practiceButton.classList.contains('active');
     }
 
+    function isCurriculumActive() {
+      const curriculumButton = document.querySelector('.tab-button[data-tab="curriculum"]');
+      return curriculumButton && curriculumButton.classList.contains('active');
+    }
+
     function openFocusMode(checklistId) {
       const checklist = practiceState.checklists.find(item => item.id === checklistId);
       if (!checklist) return;
@@ -3133,17 +4216,317 @@ window.initialData = to_js({
       }
       return candidate;
     }
-    function renderCurriculumLayer(tracks) {
+    function renderCurriculumLayer(state) {
       const section = document.createElement('section');
-      section.className = 'curriculum-board';
-      section.innerHTML = '<div class="section-card"><div class="section-header"><h3>Curriculum</h3><span style="color:var(--subtle);font-size:0.85rem;">Track mastery milestones.</span></div><div class="card-grid" id="curriculum-grid"></div></div>';
-      const grid = section.querySelector('#curriculum-grid');
-      tracks.forEach(track => {
-        const card = document.createElement('article');
-        card.className = 'template-card';
-        card.innerHTML = `<h4 style="margin:0;">${track.title}</h4><ul>${track.milestones.map(item => `<li>${item}</li>`).join('')}</ul>`;
-        grid.appendChild(card);
+      section.className = 'curriculum-layer';
+
+      const entries = state?.entries || [];
+      updateCurriculumHelpers();
+
+      const headerCard = document.createElement('article');
+      headerCard.className = 'curriculum-header';
+
+      const titleBlock = document.createElement('div');
+      const title = document.createElement('h2');
+      title.textContent = 'Build Your Curriculum';
+      const subtitle = document.createElement('p');
+      subtitle.className = 'curriculum-subtitle';
+      subtitle.textContent = 'A living, tag-driven curriculum builder that stays ready even offline.';
+      titleBlock.appendChild(title);
+      titleBlock.appendChild(subtitle);
+      headerCard.appendChild(titleBlock);
+
+      const hint = document.createElement('p');
+      hint.className = 'curriculum-hint';
+      hint.textContent = buildCurriculumHint();
+      headerCard.appendChild(hint);
+
+      const controls = document.createElement('div');
+      controls.className = 'curriculum-controls';
+      const searchField = document.createElement('input');
+      searchField.type = 'search';
+      searchField.className = 'text-field';
+      searchField.placeholder = 'Search tags, folders, or phrases (e.g., "feeding" or "AAC device")';
+      searchField.value = curriculumFilters.query;
+      controls.appendChild(searchField);
+
+      const resetButton = document.createElement('button');
+      resetButton.type = 'button';
+      resetButton.className = 'curriculum-reset';
+      resetButton.textContent = 'Clear filters';
+      controls.appendChild(resetButton);
+
+      const filterSummary = document.createElement('span');
+      filterSummary.className = 'curriculum-filter-summary';
+      controls.appendChild(filterSummary);
+
+      headerCard.appendChild(controls);
+      section.appendChild(headerCard);
+
+      const folderBar = document.createElement('div');
+      folderBar.className = 'curriculum-folder-bar';
+      section.appendChild(folderBar);
+
+      const tagBar = document.createElement('div');
+      tagBar.className = 'curriculum-tag-chips';
+      section.appendChild(tagBar);
+
+      const grid = document.createElement('div');
+      grid.className = 'curriculum-grid';
+      section.appendChild(grid);
+
+      const quickBar = document.createElement('div');
+      quickBar.className = 'curriculum-quickbar';
+      const quickCopy = document.createElement('span');
+      quickCopy.textContent = 'Quick Teach: capture pearls before they fade.';
+      quickBar.appendChild(quickCopy);
+      const addButton = document.createElement('button');
+      addButton.type = 'button';
+      addButton.className = 'quick-action';
+      addButton.innerHTML = '➕ Add new teaching point';
+      addButton.addEventListener('click', () => openCurriculumEditor());
+      quickBar.appendChild(addButton);
+      const quickConvert = document.createElement('button');
+      quickConvert.type = 'button';
+      quickConvert.className = 'quick-action secondary';
+      quickConvert.innerHTML = '☑️ Convert to checklist';
+      quickConvert.disabled = !entries.length;
+      quickConvert.addEventListener('click', () => openCurriculumConvert());
+      quickBar.appendChild(quickConvert);
+      section.appendChild(quickBar);
+
+      searchField.addEventListener('input', () => {
+        curriculumFilters.query = searchField.value;
+        refresh();
       });
+
+      resetButton.addEventListener('click', () => {
+        curriculumFilters.query = '';
+        curriculumFilters.theme = 'all';
+        curriculumFilters.tags = new Set();
+        searchField.value = '';
+        refresh();
+      });
+
+      function applyFilters(list) {
+        const normalizedQuery = curriculumFilters.query.trim().toLowerCase();
+        const selectedTags = Array.from(curriculumFilters.tags);
+        const activeTheme = curriculumFilters.theme;
+        return list.filter(entry => {
+          const matchesTheme = activeTheme === 'all' || entry.theme === activeTheme;
+          const matchesTags = !selectedTags.length || selectedTags.every(tag => entry.tags.includes(tag));
+          const matchesQuery = !normalizedQuery || entry.searchText?.includes(normalizedQuery);
+          return matchesTheme && matchesTags && matchesQuery;
+        });
+      }
+
+      function buildFolderButtons(themes) {
+        folderBar.innerHTML = '';
+        const allButton = document.createElement('button');
+        allButton.type = 'button';
+        allButton.className = 'folder-button';
+        allButton.textContent = 'All folders';
+        if (curriculumFilters.theme === 'all') {
+          allButton.classList.add('active');
+        }
+        allButton.addEventListener('click', () => {
+          if (curriculumFilters.theme !== 'all') {
+            curriculumFilters.theme = 'all';
+            refresh();
+          }
+        });
+        folderBar.appendChild(allButton);
+        themes.forEach(theme => {
+          const button = document.createElement('button');
+          button.type = 'button';
+          button.className = 'folder-button';
+          button.textContent = theme;
+          if (curriculumFilters.theme === theme) {
+            button.classList.add('active');
+          }
+          button.addEventListener('click', () => {
+            if (curriculumFilters.theme !== theme) {
+              curriculumFilters.theme = theme;
+              refresh();
+            }
+          });
+          folderBar.appendChild(button);
+        });
+      }
+
+      function buildTagChips(tags) {
+        tagBar.innerHTML = '';
+        if (!tags.length) {
+          return;
+        }
+        tags.forEach(tag => {
+          const chip = document.createElement('button');
+          chip.type = 'button';
+          chip.className = 'curriculum-chip';
+          chip.textContent = tag;
+          if (curriculumFilters.tags.has(tag)) {
+            chip.classList.add('active');
+          }
+          chip.addEventListener('click', () => {
+            if (curriculumFilters.tags.has(tag)) {
+              curriculumFilters.tags.delete(tag);
+            } else {
+              curriculumFilters.tags.add(tag);
+            }
+            refresh();
+          });
+          tagBar.appendChild(chip);
+        });
+      }
+
+      function buildCard(entry) {
+        const card = document.createElement('article');
+        card.className = 'curriculum-card';
+        card.dataset.entryId = entry.id;
+
+        const header = document.createElement('header');
+        const cardTitle = document.createElement('h3');
+        cardTitle.className = 'curriculum-card-title';
+        cardTitle.textContent = entry.title;
+        header.appendChild(cardTitle);
+
+        const meta = document.createElement('div');
+        meta.className = 'curriculum-card-meta';
+        const folderPill = document.createElement('span');
+        folderPill.className = 'curriculum-folder-pill';
+        folderPill.textContent = entry.theme;
+        meta.appendChild(folderPill);
+        const updated = formatRelativeTime(entry.updatedAt);
+        if (updated) {
+          const timeStamp = document.createElement('span');
+          timeStamp.textContent = `Updated ${updated}`;
+          meta.appendChild(timeStamp);
+        }
+        header.appendChild(meta);
+        card.appendChild(header);
+
+        if (entry.tags.length) {
+          const tagsRow = document.createElement('div');
+          tagsRow.className = 'curriculum-card-tags';
+          entry.tags.forEach(tag => {
+            const tagChip = document.createElement('span');
+            tagChip.className = 'curriculum-card-tag';
+            tagChip.textContent = tag;
+            tagsRow.appendChild(tagChip);
+          });
+          card.appendChild(tagsRow);
+        }
+
+        const body = document.createElement('div');
+        body.className = 'curriculum-card-body';
+        body.innerHTML = formatCurriculumBody(entry.body);
+        card.appendChild(body);
+
+        if (entry.references.length) {
+          const references = document.createElement('div');
+          references.className = 'curriculum-references';
+          const heading = document.createElement('h4');
+          heading.textContent = 'References';
+          references.appendChild(heading);
+          const list = document.createElement('ul');
+          entry.references.forEach(ref => {
+            const item = document.createElement('li');
+            if (ref.url) {
+              const link = document.createElement('a');
+              link.href = ref.url;
+              link.target = '_blank';
+              link.rel = 'noopener';
+              link.textContent = ref.label || ref.url;
+              item.appendChild(link);
+            } else {
+              item.textContent = ref.label;
+            }
+            list.appendChild(item);
+          });
+          references.appendChild(list);
+          card.appendChild(references);
+        }
+
+        const footer = document.createElement('footer');
+        footer.className = 'curriculum-card-footer';
+        const metaStamp = formatRelativeTime(entry.updatedAt);
+        if (metaStamp) {
+          const stamp = document.createElement('span');
+          stamp.style.marginRight = 'auto';
+          stamp.style.fontSize = '0.8rem';
+          stamp.style.color = 'var(--subtle)';
+          stamp.textContent = `Last touched ${metaStamp}`;
+          footer.appendChild(stamp);
+        }
+        const editButton = document.createElement('button');
+        editButton.type = 'button';
+        editButton.className = 'curriculum-card-action';
+        editButton.textContent = 'Edit';
+        editButton.addEventListener('click', () => openCurriculumEditor(entry.id));
+        footer.appendChild(editButton);
+        const convertButton = document.createElement('button');
+        convertButton.type = 'button';
+        convertButton.className = 'curriculum-card-action secondary';
+        convertButton.textContent = 'Checklist';
+        convertButton.addEventListener('click', () => openCurriculumConvert(entry.id));
+        footer.appendChild(convertButton);
+        card.appendChild(footer);
+
+        return card;
+      }
+
+      function renderCards(list) {
+        grid.innerHTML = '';
+        if (!list.length) {
+          const empty = document.createElement('div');
+          empty.className = 'empty-state';
+          if (entries.length) {
+            empty.innerHTML = 'No teaching points match the filters. Clear filters to see everything.';
+          } else {
+            empty.innerHTML = 'No teaching points yet. Tap <strong>Add new teaching point</strong> to start your curriculum.';
+          }
+          grid.appendChild(empty);
+          return;
+        }
+        list.forEach(entry => grid.appendChild(buildCard(entry)));
+      }
+
+      function refresh() {
+        const themes = Array.from(new Set(entries.map(entry => entry.theme))).sort((a, b) => a.localeCompare(b));
+        if (curriculumFilters.theme !== 'all' && !themes.includes(curriculumFilters.theme)) {
+          curriculumFilters.theme = 'all';
+        }
+        const themeScopedEntries = curriculumFilters.theme === 'all'
+          ? entries
+          : entries.filter(entry => entry.theme === curriculumFilters.theme);
+        const tags = Array.from(new Set(themeScopedEntries.flatMap(entry => entry.tags))).sort((a, b) => a.localeCompare(b));
+        const availableTags = new Set(tags);
+        curriculumFilters.tags = new Set(Array.from(curriculumFilters.tags).filter(tag => availableTags.has(tag)));
+        buildFolderButtons(themes);
+        buildTagChips(tags);
+        const filtered = applyFilters(entries);
+        renderCards(filtered);
+        const hasFilters = curriculumFilters.theme !== 'all' || curriculumFilters.tags.size || curriculumFilters.query.trim();
+        resetButton.disabled = !hasFilters;
+        quickConvert.disabled = !entries.length;
+        const countText = `${filtered.length} teaching point${filtered.length === 1 ? '' : 's'}`;
+        const totalText = filtered.length !== entries.length ? ` (of ${entries.length})` : '';
+        const parts = [];
+        if (curriculumFilters.theme !== 'all') {
+          parts.push(`Folder: ${curriculumFilters.theme}`);
+        }
+        if (curriculumFilters.tags.size) {
+          parts.push(`Tags: ${Array.from(curriculumFilters.tags).join(', ')}`);
+        }
+        if (curriculumFilters.query.trim()) {
+          parts.push(`Search: “${curriculumFilters.query.trim()}”`);
+        }
+        filterSummary.textContent = parts.length
+          ? `${countText}${totalText} • ${parts.join(' • ')}`
+          : `${countText}${totalText}`;
+      }
+
+      refresh();
       return section;
     }
 
@@ -3166,7 +4549,10 @@ window.initialData = to_js({
     }
 
     function renderCurriculum() {
-      // Already handled in renderCurriculumLayer but ensures overlay data ready
+      updateCurriculumHelpers();
+      if (isCurriculumActive()) {
+        renderTab('curriculum');
+      }
     }
 
     function flashMessage(text) {
@@ -3200,6 +4586,8 @@ window.initialData = to_js({
       if (event.key === 'Escape') {
         toggleOverlay(globalSearchOverlay, false);
         toggleOverlay(checklistOverlay, false);
+        closeCurriculumEditor();
+        closeCurriculumConvertOverlay();
         closeAdvisor();
         notesDrawer.classList.remove('open');
         notesDrawer.setAttribute('aria-hidden', 'true');
